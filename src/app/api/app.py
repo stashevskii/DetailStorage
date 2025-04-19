@@ -1,15 +1,30 @@
 from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
+from sqlalchemy import delete
 from src.app.core.exceptions import exception_handlers
 from src.app.api.routes.detail.router import add_detail_router
 from src.app.core.config import app_config
-from src.app.db.db import engine, Base
+from src.app.db.db import engine, Base, get_db
+from src.app.models.detail import Detail
+from src.app.models.country import Country
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     Base.metadata.create_all(bind=engine)
+    session = get_db()
+    required_countries = {'China', 'Denmark'}
+
+    existing = {c.name for c in session.query(Country.name).all()}
+    missing = required_countries - existing
+
+    for country in missing:
+        session.add(Country(name=country))
+
+    session.query(Country).filter(Country.name.notin_(required_countries)).delete()
+    session.commit()
+
     yield
 
 

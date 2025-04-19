@@ -29,13 +29,7 @@ class DetailService:
         res_response = []
 
         for i in response:
-            res_response.append({
-                "id": i.id,
-                "lego_id": i.lego_id,
-                "name": i.name,
-                "quantity": i.quantity,
-                "description": i.description
-            })
+            res_response.append(i.as_dict())
         return res_response
 
     def add_detail(self, ads: AddDetailDtoRequest) -> dict[int: Optional[int], str: bool] | HTTPException:

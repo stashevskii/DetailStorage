@@ -5,6 +5,7 @@ from src.app.dtos.base import DetailStorageBase
 
 class AddDetailDtoRequest(DetailStorageBase):
     id: Optional[int] = Field(ge=0, default=None)
+    country_id: int = Field(ge=1, default=None)
     lego_id: int = Field(ge=0, default=None)
     name: str = Field(max_length=30, default=None)
     quantity: int = Field(ge=0, default=None)
