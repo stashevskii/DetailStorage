@@ -1,9 +1,9 @@
 from pydantic import Field
 from typing import Optional
-from src.app.entities.base import DetailStorageBase
+from src.app.dtos.base import DetailStorageBase
 
 
-class GetDetailSchemaResponse(DetailStorageBase):
+class GetDetailDtoResponse(DetailStorageBase):
     id: Optional[int] = Field(ge=0)
     lego_id: Optional[int] = Field(ge=0)
     name: Optional[str] = Field(max_length=30)

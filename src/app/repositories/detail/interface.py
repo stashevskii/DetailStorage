@@ -1,5 +1,5 @@
-from src.app.entities.details.requests.post import AddDetailSchemaRequest
-from src.app.entities.details.requests.put import FullUpdateDetailSchemaRequest
+from src.app.dtos.detail.requests.post import AddDetailDtoRequest
+from src.app.dtos.detail.requests.put import FullUpdateDetailDtoRequest
 from abc import abstractmethod, ABC
 
 
@@ -9,7 +9,7 @@ class DetailInterface(ABC):
         raise NotImplemented
 
     @abstractmethod
-    def add(self, ads: AddDetailSchemaRequest) -> int:
+    def add(self, ads: AddDetailDtoRequest) -> int:
         raise NotImplemented
 
     @abstractmethod
@@ -17,7 +17,7 @@ class DetailInterface(ABC):
         raise NotImplemented
 
     @abstractmethod
-    def full_update(self, id: int, uds: FullUpdateDetailSchemaRequest) -> None:
+    def full_update(self, id: int, uds: FullUpdateDetailDtoRequest) -> None:
         raise NotImplemented
 
     @abstractmethod

@@ -1,5 +1,5 @@
-from src.app.entities.details.requests.post import AddDetailSchemaRequest
-from src.app.entities.details.requests.put import FullUpdateDetailSchemaRequest
+from src.app.dtos.detail.requests.post import AddDetailDtoRequest
+from src.app.dtos.detail.requests.put import FullUpdateDetailDtoRequest
 from .interface import DetailInterface
 from src.app.repositories.base import Repository
 from ...db.db import Base
@@ -21,7 +21,7 @@ class DetailRepository(Repository, DetailInterface):
             response = self.session.query(self.table).filter_by(**filter_params).first()
             return [response]
 
-    def add(self, ads: AddDetailSchemaRequest) -> int:
+    def add(self, ads: AddDetailDtoRequest) -> int:
         new_detail = self.table(**ads.model_dump())
         self.session.add(new_detail)
         self.session.commit()
@@ -32,7 +32,7 @@ class DetailRepository(Repository, DetailInterface):
         self.session.delete(detail_to_delete)
         self.session.commit()
 
-    def full_update(self, id: int, uds: FullUpdateDetailSchemaRequest) -> None:
+    def full_update(self, id: int, uds: FullUpdateDetailDtoRequest) -> None:
         detail_to_update = self.session.query(self.table).filter_by(id=id).first()
         detail_to_update.lego_id = uds.new_lego_id
         detail_to_update.name = uds.new_name

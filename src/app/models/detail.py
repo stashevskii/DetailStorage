@@ -4,7 +4,7 @@ from src.app.db.db import Base
 
 
 class Detail(Base):
-    __tablename__ = "details"
+    __tablename__ = "detail"
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     lego_id: Mapped[int] = mapped_column(Integer, nullable=False)
     name: Mapped[str] = mapped_column(String(30), nullable=False)

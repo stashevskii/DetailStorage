@@ -1,4 +1,4 @@
-prefix = "/api/details"
+prefix = "/api/detail"
 tags = ["Details"]
 
 docs = {
