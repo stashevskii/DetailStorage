@@ -1,6 +1,6 @@
 from pydantic import Field
 from typing import Optional
-from src.app.bases.base_schema import BaseSchema
+from src.app.core.common.schema import BaseSchema
 
 
 class GetDetailSchemaRequest(BaseSchema):

@@ -1,12 +1,11 @@
 from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
-from .exceptions import global_exception_handlers
+from src.app.core.shared.exceptions import global_exception_handlers
+from src.app.core.shared.config import app_config
 from src.app.details.routes.router import add_detail_router
-from src.app.config import app_config
-from src.app.db import engine, get_db
-from src.app.details.models.country import Country
-from bases.base_model import Base
+from src.app.core.db import engine, get_db, Base
+from src.app.details.models.models import Country
 
 
 @asynccontextmanager

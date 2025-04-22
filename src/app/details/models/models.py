@@ -1,6 +1,22 @@
 from sqlalchemy import Integer, String, ForeignKey, inspect
 from sqlalchemy.orm import mapped_column, Mapped
-from src.app.bases.base_model import Base
+from src.app.core.db import Base
+
+
+class Country(Base):
+    __tablename__ = "countries"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    name: Mapped[str] = mapped_column(String(30))
+
+    def __init__(self, name: str, id: int = None):
+        self.id = id
+        self.name = name
+
+    def __repr__(self):
+        return f"Country(id={self.id}, name={self.name})"
+
+    def as_dict(self):
+        return {c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs}
 
 
 class Detail(Base):
@@ -12,7 +28,7 @@ class Detail(Base):
     quantity: Mapped[int] = mapped_column(Integer, nullable=False)
     description: Mapped[str] = mapped_column(String(30), nullable=True)
 
-    def __init__(self, lego_id, name, quantity, country_id, id=None, description=None):
+    def __init__(self, lego_id: int, name: str, quantity: int, country_id, id=None, description=None):
         self.id = id
         self.country_id = country_id
         self.lego_id = lego_id

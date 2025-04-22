@@ -1,5 +1,5 @@
 from pydantic import Field
-from src.app.bases.base_config import ConfigBase
+from src.app.core.common.config import ConfigBase
 
 
 class DbConfig(ConfigBase):

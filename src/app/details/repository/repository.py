@@ -1,9 +1,9 @@
 from src.app.details.schemas.requests.post import AddDetailSchemaRequest
 from src.app.details.schemas.requests.put import FullUpdateDetailSchemaRequest
 from src.app.details.repository.interface import DetailRepositoryInterface
-from src.app.bases.base_repository import Repository
-from src.app.bases.base_model import Base
-from src.app.details.models.detail import Detail
+from src.app.core.common.repository import Repository
+from src.app.core.db import Base
+from src.app.details.models.models import Detail
 
 
 class DetailRepository(Repository, DetailRepositoryInterface):

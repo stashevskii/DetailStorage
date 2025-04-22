@@ -1,4 +1,4 @@
-from src.app.bases.base_schema import BaseSchema
+from src.app.core.common.schema import BaseSchema
 
 
 class SuccessResponseSchema(BaseSchema):

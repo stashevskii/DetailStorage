@@ -1,12 +1,11 @@
 from abc import abstractmethod, ABC
 from typing import Optional
 from fastapi import HTTPException
-from src.app.bases.base_model import Base
+from src.app.core.db import Base
 from src.app.details.schemas.requests.get import GetDetailSchemaRequest
 from src.app.details.schemas.requests.patch import PartUpdateDetailSchemaRequest
 from src.app.details.schemas.requests.post import AddDetailSchemaRequest
 from src.app.details.schemas.requests.put import FullUpdateDetailSchemaRequest
-from src.app.details.schemas.responses.delete import DeleteDetailSchemaResponse
 
 
 class DetailServiceInterface(ABC):
