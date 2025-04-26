@@ -1,10 +1,10 @@
 from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
-from src.app.core.shared.exceptions import global_exception_handlers
-from src.app.core.shared.config import app_config
+from src.app.details.core.overall.exceptions import global_exception_handlers
+from src.app.details.core.overall.config import app_config
 from src.app.details.routes.router import add_detail_router
-from src.app.core.db import engine, get_db, Base
+from src.app.details.core.db import engine, get_db, Base
 from src.app.details.models.models import Country
 
 
@@ -40,7 +40,7 @@ def create_app() -> FastAPI:
 
 
 def run():
-    uvicorn.run("src.app.main:app", host=app_config.app_host, port=app_config.app_port, reload=True)
+    uvicorn.run("src.app.details.bin.main:app", host=app_config.app_host, port=app_config.app_port, reload=True)
 
 
 app = create_app()

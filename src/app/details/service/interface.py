@@ -1,7 +1,7 @@
 from abc import abstractmethod, ABC
 from typing import Optional
 from fastapi import HTTPException
-from src.app.core.db import Base
+from src.app.details.core.db import Base
 from src.app.details.schemas.requests.get import GetDetailSchemaRequest
 from src.app.details.schemas.requests.patch import PartUpdateDetailSchemaRequest
 from src.app.details.schemas.requests.post import AddDetailSchemaRequest

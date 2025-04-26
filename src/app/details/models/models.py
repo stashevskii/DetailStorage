@@ -1,6 +1,6 @@
 from sqlalchemy import Integer, String, ForeignKey, inspect
 from sqlalchemy.orm import mapped_column, Mapped
-from src.app.core.db import Base
+from src.app.details.core.db import Base
 
 
 class Country(Base):

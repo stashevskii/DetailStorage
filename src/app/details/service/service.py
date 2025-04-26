@@ -1,17 +1,17 @@
 from typing import Optional
 from fastapi import HTTPException
-from src.app.core.shared.dependencies import DbDep
+from src.app.details.core.overall.dependencies import DbDep
 from src.app.details.schemas.requests.get import GetDetailSchemaRequest
 from src.app.details.schemas.requests.patch import PartUpdateDetailSchemaRequest
 from src.app.details.schemas.requests.post import AddDetailSchemaRequest
 from src.app.details.schemas.requests.put import FullUpdateDetailSchemaRequest
 from src.app.details.models.models import Detail
 from src.app.details.repository.repository import DetailRepository
-from src.app.core.db import Base
-from src.app.details.utils import check_detail_exist
-from src.app.core.common.service import Service
+from src.app.details.core.db import Base
+from src.app.details.utils.utils import check_detail_exist
+from src.app.details.core.common.service import Service
 from .interface import DetailServiceInterface
-from ..exceptions import not_found_detail_exception
+from src.app.details.core.overall.exceptions import not_found_detail_exception
 
 
 class DetailService(Service, DetailServiceInterface):

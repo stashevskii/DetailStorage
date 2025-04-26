@@ -1,19 +1,6 @@
-from typing import Optional
-
 from fastapi import APIRouter, FastAPI
-from pydantic import Field
-from ..config import *
+from .config import *
 from .funcs import *
-from src.app.core.common.schema import BaseSchema
-
-
-class TestSchema(BaseSchema):
-    id: Optional[int] = Field(ge=0, default=None)
-    country_id: int = Field(ge=1, default=None)
-    lego_id: int = Field(ge=0, default=None)
-    name: str = Field(max_length=30, default=None)
-    quantity: int = Field(ge=0, default=None)
-    description: Optional[str] = Field(max_length=30, default=None)
 
 router = APIRouter(prefix=prefix, tags=tags)
 
