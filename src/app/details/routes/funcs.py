@@ -1,4 +1,7 @@
 from fastapi import Depends
+
+from src.app.details.exceptions.http.custom import NotFoundDetailHttpException, DetailAlreadyExistsHttpException
+from src.app.details.exceptions.basic.exceptions import NotFoundDetailBasicException, DetailAlreadyExistsBasicException
 from src.app.details.schemas.requests.get import GetDetailSchemaRequest
 from src.app.details.schemas.requests.patch import PartUpdateDetailSchemaRequest
 from src.app.details.schemas.requests.post import AddDetailSchemaRequest
@@ -9,27 +12,33 @@ from src.app.details.schemas.responses.patch import PartUpdateDetailSchemaRespon
 from src.app.details.schemas.responses.post import AddDetailSchemaResponse
 from src.app.details.schemas.responses.put import FullUpdateDetailSchemaResponse
 from src.app.details.service.service import DetailService
+from src.app.details.utils.decorators import map_exceptions
 
 
+@map_exceptions(NotFoundDetailBasicException, NotFoundDetailHttpException)
 def get_detail(service: DetailService = Depends(DetailService),
                gds: GetDetailSchemaRequest = Depends()) -> list[GetDetailSchemaResponse]:
     return service.get_detail(gds)
 
 
+@map_exceptions(DetailAlreadyExistsBasicException, DetailAlreadyExistsHttpException)
 def add_detail(service: DetailService = Depends(DetailService),
                ads: AddDetailSchemaRequest = Depends()) -> AddDetailSchemaResponse:
     return service.add_detail(ads)
 
 
+@map_exceptions(NotFoundDetailBasicException, NotFoundDetailHttpException)
 def delete_detail(id: int, service: DetailService = Depends(DetailService)) -> DeleteDetailSchemaResponse:
     return service.delete_detail(id)
 
 
+@map_exceptions(NotFoundDetailBasicException, NotFoundDetailHttpException)
 def full_update_detail(id: int, service: DetailService = Depends(DetailService),
                        uds: FullUpdateDetailSchemaRequest = Depends()) -> FullUpdateDetailSchemaResponse:
     return service.full_update_detail(id, uds)
 
 
+@map_exceptions(NotFoundDetailBasicException, NotFoundDetailHttpException)
 def part_update_detail(id: int, service: DetailService = Depends(DetailService),
                        uds: PartUpdateDetailSchemaRequest = Depends()) -> PartUpdateDetailSchemaResponse:
     return service.part_update_detail(id, uds)

@@ -11,7 +11,7 @@ from src.app.details.core.db import Base
 from src.app.details.utils.utils import check_detail_exist
 from src.app.details.core.common.service import Service
 from .interface import DetailServiceInterface
-from src.app.details.core.overall.exceptions import not_found_detail_exception
+from src.app.details.exceptions.basic.exceptions import NotFoundDetailBasicException, DetailAlreadyExistsBasicException
 
 
 class DetailService(Service, DetailServiceInterface):
@@ -27,7 +27,7 @@ class DetailService(Service, DetailServiceInterface):
         del get_params["all_obj"]
         response = self.repository.get(get_params, gds.all_obj)
         if response == [None] or not response:
-            raise not_found_detail_exception
+            raise NotFoundDetailBasicException
 
         res_response = []
 
@@ -37,27 +37,27 @@ class DetailService(Service, DetailServiceInterface):
 
     def add_detail(self, ads: AddDetailSchemaRequest) -> dict[int: Optional[int], str: bool] | HTTPException:
         if check_detail_exist(self.repository, ads.id):
-            raise not_found_detail_exception
+            raise DetailAlreadyExistsBasicException
         new_id = self.repository.add(ads)
         return {"id": new_id, "success": True}
 
     def delete_detail(self, id: int) -> dict[str: bool] | HTTPException:
         if not check_detail_exist(self.repository, id):
-            raise not_found_detail_exception
+            raise NotFoundDetailBasicException
         self.repository.delete(id)
         return {"success": True}
 
     def full_update_detail(self, id, uds: FullUpdateDetailSchemaRequest) -> dict[int: Optional[int],
                                                                             str: bool] | HTTPException:
         if not check_detail_exist(self.repository, id):
-            raise not_found_detail_exception
+            raise NotFoundDetailBasicException
         self.repository.full_update(id, uds)
         return {"success": True, "id": id}
 
     def part_update_detail(self, id, uds: PartUpdateDetailSchemaRequest) -> dict[int: Optional[int],
                                                                             str: bool] | HTTPException:
         if not check_detail_exist(self.repository, id):
-            raise not_found_detail_exception
+            raise NotFoundDetailBasicException
         update_params = {k: v for k, v in uds.model_dump().items() if v is not None}
         self.repository.part_update(id, update_params)
         return {"success": True, "id": id}

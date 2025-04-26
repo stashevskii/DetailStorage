@@ -1,9 +1,9 @@
 from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
-from src.app.details.core.overall.exceptions import global_exception_handlers
 from src.app.details.core.overall.config import app_config
-from src.app.details.routes.router import add_detail_router
+from src.app.details.exceptions.register import register_exceptions_handler
+from src.app.details.routes.router import router
 from src.app.details.core.db import engine, get_db, Base
 from src.app.details.models.models import Country
 
@@ -32,10 +32,10 @@ def create_app() -> FastAPI:
         title=app_config.app_title,
         version=app_config.app_version,
         description=app_config.app_description,
-        exception_handlers=global_exception_handlers,
         lifespan=lifespan
     )
-    add_detail_router(app_)
+    app_.include_router(router)
+    register_exceptions_handler(app_)
     return app_
 
 
