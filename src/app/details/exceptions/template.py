@@ -15,7 +15,11 @@ class ExceptionResponseTemplate:
                 "url": self.request.url.path,
                 "method": self.request.method,
                 "message": self.exc.detail,
-                "headers": self.exc.headers
+                "headers": self.exc.headers,
+                "client": {
+                    "host": self.request.client.host,
+                    "port": self.request.client.port
+                }
             },
             headers=self.exc.headers
         )

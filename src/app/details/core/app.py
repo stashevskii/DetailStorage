@@ -1,7 +1,7 @@
 from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
-from src.app.details.core.overall.config import app_config
+from src.app.details.config.config import app_config
 from src.app.details.exceptions.register import register_exceptions_handler
 from src.app.details.routes.router import router
 from src.app.details.core.db import engine, get_db, Base
