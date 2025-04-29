@@ -1,7 +1,8 @@
 from .interface import SearchServiceInterface
 from src.app.search.core.common.service import ServiceWithParser
 from ..foreign.parser.lego.parser import LegoParser
-from ..schemas.schemas import GetDetailByLegoIdSchema, GetDetailByNameSchema
+from ..schemas.lego_id import GetDetailByLegoIdSchema
+from ..schemas.name import GetDetailByNameSchema
 
 
 class SearchService(ServiceWithParser, SearchServiceInterface):

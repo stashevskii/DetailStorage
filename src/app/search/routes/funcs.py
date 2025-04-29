@@ -1,5 +1,6 @@
 from fastapi.params import Depends
-from src.app.search.schemas.schemas import GetDetailByLegoIdSchema, GetDetailByNameSchema
+from src.app.search.schemas.lego_id import GetDetailByLegoIdSchema
+from src.app.search.schemas.name import GetDetailByNameSchema
 from src.app.search.service.service import SearchService
 
 
