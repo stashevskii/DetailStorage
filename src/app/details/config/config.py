@@ -22,7 +22,7 @@ class AppConfig(ConfigBase):
 class RouterConfig:
     prefix: str = "/api/details"
     tags: list[str] = ["Details"]
-    docs: dict[int: dict[str: str, str: str]] = {
+    docs: dict[int: dict[str: str]] = {
         1: {
             "summary": "Get details by parameters",
             "description": "Get details by parameters endpoint"

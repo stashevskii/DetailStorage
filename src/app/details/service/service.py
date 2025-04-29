@@ -8,7 +8,7 @@ from src.app.details.schemas.requests.put import FullUpdateDetailSchemaRequest
 from src.app.details.models.models import Detail
 from src.app.details.repository.repository import DetailRepository
 from src.app.details.core.db import Base
-from src.app.details.utils.utils import check_detail_exist
+from src.app.details.utils.helpers import check_detail_exist
 from src.app.details.core.common.service import Service
 from .interface import DetailServiceInterface
 from src.app.details.exceptions.business.business import NotFoundDetailBasicException, DetailAlreadyExistsBasicException
