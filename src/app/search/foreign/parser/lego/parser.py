@@ -16,7 +16,7 @@ class LegoParser(Parser, ParserInterface):
 
     def get_detail_by_query(self, q: str, pq: int) -> dict:
         if not q:
-            return {}
+            return {"data": []}
         res = []
 
         for i in range(pq):
