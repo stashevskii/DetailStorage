@@ -10,11 +10,11 @@ from src.app.users.schemas.requests.put import FullUpdateUserSchemaRequest
 
 class UserServiceInterface(ABC):
     @abstractmethod
-    def get(self, gds: GetUserSchemaRequest) -> list[Base]:
+    def get(self, schema: GetUserSchemaRequest) -> list[Base]:
         raise NotImplemented
 
     @abstractmethod
-    def add(self, ads: AddUserSchemaRequest) -> dict[int: Optional[int], str: bool] | HTTPException:
+    def add(self, schema: AddUserSchemaRequest) -> dict[int: Optional[int], str: bool] | HTTPException:
         raise NotImplemented
 
     @abstractmethod
@@ -22,11 +22,11 @@ class UserServiceInterface(ABC):
         raise NotImplemented
 
     @abstractmethod
-    def full_update(self, id, uds: FullUpdateUserSchemaRequest) -> dict[int: Optional[int],
+    def full_update(self, id, schema: FullUpdateUserSchemaRequest) -> dict[int: Optional[int],
                                                                             str: bool] | HTTPException:
         raise NotImplemented
 
     @abstractmethod
-    def part_update(self, id, uds: PartUpdateUserSchemaRequest) -> dict[int: Optional[int],
+    def part_update(self, id, schema: PartUpdateUserSchemaRequest) -> dict[int: Optional[int],
                                                                             str: bool] | HTTPException:
         raise NotImplemented

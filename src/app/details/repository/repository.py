@@ -21,8 +21,8 @@ class DetailRepository(Repository, DetailRepositoryInterface):
             response = self.session.query(self.table).filter_by(**filter_params).first()
             return [response]
 
-    def add(self, ads: AddDetailSchemaRequest) -> int:
-        new_detail = self.table(**ads.model_dump())
+    def add(self, schema: AddDetailSchemaRequest) -> int:
+        new_detail = self.table(**schema.model_dump())
         self.session.add(new_detail)
         self.session.commit()
         return new_detail.id
@@ -32,12 +32,12 @@ class DetailRepository(Repository, DetailRepositoryInterface):
         self.session.delete(detail_to_delete)
         self.session.commit()
 
-    def full_update(self, id: int, uds: FullUpdateDetailSchemaRequest) -> None:
+    def full_update(self, id: int, schema: FullUpdateDetailSchemaRequest) -> None:
         detail_to_update = self.session.query(self.table).filter_by(id=id).first()
-        detail_to_update.lego_id = uds.new_lego_id
-        detail_to_update.name = uds.new_name
-        detail_to_update.quantity = uds.new_quantity
-        detail_to_update.description = uds.new_description
+        detail_to_update.lego_id = schema.new_lego_id
+        detail_to_update.name = schema.new_name
+        detail_to_update.quantity = schema.new_quantity
+        detail_to_update.description = schema.new_description
         self.session.commit()
 
     def part_update(self, id: int, update_params: dict) -> None:

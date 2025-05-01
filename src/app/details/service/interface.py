@@ -10,11 +10,11 @@ from src.app.details.schemas.requests.put import FullUpdateDetailSchemaRequest
 
 class DetailServiceInterface(ABC):
     @abstractmethod
-    def get(self, gds: GetDetailSchemaRequest) -> list[Base]:
+    def get(self, schema: GetDetailSchemaRequest) -> list[Base]:
         raise NotImplemented
 
     @abstractmethod
-    def add(self, ads: AddDetailSchemaRequest) -> dict[int: Optional[int], str: bool] | HTTPException:
+    def add(self, schema: AddDetailSchemaRequest) -> dict[int: Optional[int], str: bool] | HTTPException:
         raise NotImplemented
 
     @abstractmethod
@@ -22,11 +22,11 @@ class DetailServiceInterface(ABC):
         raise NotImplemented
 
     @abstractmethod
-    def full_update(self, id, uds: FullUpdateDetailSchemaRequest) -> dict[int: Optional[int],
+    def full_update(self, id, schema: FullUpdateDetailSchemaRequest) -> dict[int: Optional[int],
                                                                             str: bool] | HTTPException:
         raise NotImplemented
 
     @abstractmethod
-    def part_update(self, id, uds: PartUpdateDetailSchemaRequest) -> dict[int: Optional[int],
+    def part_update(self, id, schema: PartUpdateDetailSchemaRequest) -> dict[int: Optional[int],
                                                                             str: bool] | HTTPException:
         raise NotImplemented

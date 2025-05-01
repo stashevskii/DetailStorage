@@ -9,7 +9,7 @@ class DetailRepositoryInterface(ABC):
         raise NotImplemented
 
     @abstractmethod
-    def add(self, ads: AddDetailSchemaRequest) -> int:
+    def add(self, schema: AddDetailSchemaRequest) -> int:
         raise NotImplemented
 
     @abstractmethod
@@ -17,7 +17,7 @@ class DetailRepositoryInterface(ABC):
         raise NotImplemented
 
     @abstractmethod
-    def full_update(self, id: int, uds: FullUpdateDetailSchemaRequest) -> None:
+    def full_update(self, id: int, schema: FullUpdateDetailSchemaRequest) -> None:
         raise NotImplemented
 
     @abstractmethod

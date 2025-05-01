@@ -9,7 +9,7 @@ class UserRepositoryInterface(ABC):
         raise NotImplemented
 
     @abstractmethod
-    def add(self, ads: AddUserSchemaRequest) -> int:
+    def add(self, schema: AddUserSchemaRequest) -> int:
         raise NotImplemented
 
     @abstractmethod
@@ -17,7 +17,7 @@ class UserRepositoryInterface(ABC):
         raise NotImplemented
 
     @abstractmethod
-    def full_update(self, id: int, uds: FullUpdateUserSchemaRequest) -> None:
+    def full_update(self, id: int, schema: FullUpdateUserSchemaRequest) -> None:
         raise NotImplemented
 
     @abstractmethod
