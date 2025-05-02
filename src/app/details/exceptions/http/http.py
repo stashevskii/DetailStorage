@@ -17,3 +17,12 @@ class DetailAlreadyExistsHttpException(HTTPException):
             detail="Detail already exists",
             headers=None
         )
+
+
+class NotFoundUserHttpException(HTTPException):
+    def __init__(self):
+        super().__init__(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found",
+            headers=None
+        )

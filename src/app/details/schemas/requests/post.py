@@ -1,11 +1,12 @@
 from pydantic import Field
 from typing import Optional
+from src.app.details.config.config import CountryConfig
 from src.app.details.core.common.schema import BaseSchema
 
 
 class AddDetailSchemaRequest(BaseSchema):
     id: Optional[int] = Field(ge=0, default=None)
-    country_id: int = Field(ge=1)
+    country_id: int = Field(ge=1, le=len(CountryConfig.required_countries))
     user_id: int = Field(ge=1)
     lego_id: int = Field(ge=0)
     name: str = Field(max_length=30)

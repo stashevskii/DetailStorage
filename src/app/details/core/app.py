@@ -6,21 +6,21 @@ from src.app.details.exceptions.register import register_exceptions_handler
 from src.app.details.routes.router import router
 from src.app.details.core.db import engine, get_db, Base
 from src.app.details.models.models import Country
+from src.app.details.config.config import CountryConfig
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     Base.metadata.create_all(bind=engine)
     session = get_db()
-    required_countries = {'China', 'Denmark'}
 
     existing = {c.name for c in session.query(Country.name).all()}
-    missing = required_countries - existing
+    missing = CountryConfig.required_countries - existing
 
     for country in missing:
         session.add(Country(name=country))
 
-    session.query(Country).filter(Country.name.notin_(required_countries)).delete()
+    session.query(Country).filter(Country.name.notin_(CountryConfig.required_countries)).delete()
     session.commit()
 
     yield

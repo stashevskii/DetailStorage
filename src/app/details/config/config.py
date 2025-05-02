@@ -46,6 +46,16 @@ class RouterConfig:
     }
 
 
+class IntegrationConfig:
+    user_service_url: str = "http://localhost:8002"
+
+
+class CountryConfig:
+    required_countries: set[str] = {'China', 'Denmark'}
+
+
 db_config = DbConfig()
 app_config = AppConfig()
 router_config = RouterConfig()
+integration_config = IntegrationConfig()
+country_config = CountryConfig()
