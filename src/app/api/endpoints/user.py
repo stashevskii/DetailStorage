@@ -7,20 +7,17 @@ from src.app.api.errors.http.user import (
     UserWithThisEmailAlreadyExistsHttpException
 )
 from src.app.core.config import config
+from src.app.core.shared.schemas import BaseResponseSchema, SuccessSchema
 from src.app.domain.exceptions.user import (
     NotFoundUserBasicException,
     UserAlreadyExistsBasicException,
     UserWithThisEmailAlreadyExistsBasicException
 )
-from src.app.domain.schemas.user.requests.get import GetUserSchemaRequest
-from src.app.domain.schemas.user.requests.patch import PartUpdateUserSchemaRequest
-from src.app.domain.schemas.user.requests.post import AddUserSchemaRequest
-from src.app.domain.schemas.user.requests.put import FullUpdateUserSchemaRequest
-from src.app.domain.schemas.user.responses.delete import DeleteUserSchemaResponse
-from src.app.domain.schemas.user.responses.get import GetUserSchemaResponse
-from src.app.domain.schemas.user.responses.patch import PartUpdateUserSchemaResponse
-from src.app.domain.schemas.user.responses.post import AddUserSchemaResponse
-from src.app.domain.schemas.user.responses.put import FullUpdateUserSchemaResponse
+from src.app.domain.schemas.user import UserFilter
+from src.app.domain.schemas.user import UserPartUpdate
+from src.app.domain.schemas.user import UserCreate
+from src.app.domain.schemas.user import UserFullUpdate
+from src.app.domain.schemas.user import UserSchema
 from src.app.domain.services.user import UserService
 from src.app.utils.decorators import map_exceptions
 
@@ -34,7 +31,7 @@ router = APIRouter(prefix=config.user_router_config.prefix, tags=config.user_rou
 )
 @map_exceptions((NotFoundUserBasicException,), (NotFoundUserHttpException,))
 def get_user(service: UserService = Depends(UserService),
-             schema: GetUserSchemaRequest = Depends()) -> Dict[str, list[GetUserSchemaResponse]]:
+             schema: UserFilter = Depends()) -> Dict[str, list[UserSchema]]:
     return service.get(schema)
 
 
@@ -46,37 +43,37 @@ def get_user(service: UserService = Depends(UserService),
 @map_exceptions((UserAlreadyExistsBasicException, UserWithThisEmailAlreadyExistsBasicException),
                 (UserAlreadyExistsHttpException, UserWithThisEmailAlreadyExistsHttpException))
 def add_user(service: UserService = Depends(UserService),
-             schema: AddUserSchemaRequest = Depends()) -> AddUserSchemaResponse:
+             schema: UserCreate = Depends()) -> BaseResponseSchema:
     return service.add(schema)
 
 
 @router.delete(
-    "/",
+    "/{id}",
     summary=config.user_router_config.docs[3]["summary"],
     description=config.user_router_config.docs[3]["description"]
 )
 @map_exceptions((NotFoundUserBasicException,), (NotFoundUserHttpException,))
-def delete_user(id: int, service: UserService = Depends(UserService)) -> DeleteUserSchemaResponse:
+def delete_user(id: int, service: UserService = Depends(UserService)) -> SuccessSchema:
     return service.delete(id)
 
 
 @router.put(
-    "/",
+    "/{id}",
     summary=config.user_router_config.docs[4]["summary"],
     description=config.user_router_config.docs[4]["description"]
 )
 @map_exceptions((NotFoundUserBasicException,), (NotFoundUserHttpException,))
 def full_update_user(id: int, service: UserService = Depends(UserService),
-                     schema: FullUpdateUserSchemaRequest = Depends()) -> FullUpdateUserSchemaResponse:
+                     schema: UserFullUpdate = Depends()) -> BaseResponseSchema:
     return service.full_update(id, schema)
 
 
 @router.patch(
-    "/",
+    "/{id}",
     summary=config.user_router_config.docs[5]["summary"],
     description=config.user_router_config.docs[5]["description"]
 )
 @map_exceptions((NotFoundUserBasicException,), (NotFoundUserHttpException,))
 def part_update_user(id: int, service: UserService = Depends(UserService),
-                     schema: PartUpdateUserSchemaRequest = Depends()) -> PartUpdateUserSchemaResponse:
+                     schema: UserPartUpdate = Depends()) -> BaseResponseSchema:
     return service.part_update(id, schema)

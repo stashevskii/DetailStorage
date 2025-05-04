@@ -3,10 +3,10 @@ from fastapi import HTTPException
 from fastapi.params import Depends
 
 from src.app.utils.dependencies import DbDep
-from src.app.domain.schemas.detail.requests.get import GetDetailSchemaRequest
-from src.app.domain.schemas.detail.requests.patch import PartUpdateDetailSchemaRequest
-from src.app.domain.schemas.detail.requests.post import AddDetailSchemaRequest
-from src.app.domain.schemas.detail.requests.put import FullUpdateDetailSchemaRequest
+from src.app.domain.schemas.detail import DetailSchema, DetailFilter
+from src.app.domain.schemas.detail import DetailPartUpdate
+from src.app.domain.schemas.detail import DetailCreate
+from src.app.domain.schemas.detail import DetailFullUpdate
 from src.app.domain.models.detail import Detail
 from src.app.repositories.detail import DetailRepository
 from src.app.utils.exists import (
@@ -21,7 +21,7 @@ from .user import UserService
 from ..interfaces.detail import DetailServiceInterface
 from src.app.repositories.user import UserRepository
 from ..models.user import User
-from ..schemas.user.requests.get import GetUserSchemaRequest
+from ..schemas.user import UserFilter
 
 
 class DetailService(Service, DetailServiceInterface):
@@ -34,7 +34,7 @@ class DetailService(Service, DetailServiceInterface):
         self.user_service = user_service
         self.user_repo = UserRepository(session, User)
 
-    def get(self, schema: GetDetailSchemaRequest) -> dict:
+    def get(self, schema: DetailFilter) -> dict:
         get_params = {k: v for k, v in schema.model_dump().items() if v is not None}
 
         del get_params["all_obj"]
@@ -47,12 +47,12 @@ class DetailService(Service, DetailServiceInterface):
             details_and_owners.append(
                 {
                     "detail": i.as_dict(),
-                    "owner": self.user_service.get(GetUserSchemaRequest(id=i.user_id))
+                    "owner": self.user_service.get(UserFilter(id=i.user_id))
                 }
             )
         return {"data": details_and_owners}
 
-    def add(self, schema: AddDetailSchemaRequest) -> dict[int: Optional[int], str: bool] | HTTPException:
+    def add(self, schema: DetailCreate) -> dict[int: Optional[int], str: bool] | HTTPException:
         raise_exceptions_adding_detail(self.repository, schema.id)
         raise_exceptions_user_not_exists(self.user_repo, schema.user_id)
         new_id = self.repository.add(schema)
@@ -63,13 +63,13 @@ class DetailService(Service, DetailServiceInterface):
         self.repository.delete(id)
         return {"success": True}
 
-    def full_update(self, id, schema: FullUpdateDetailSchemaRequest) -> dict[int: Optional[int],
+    def full_update(self, id, schema: DetailFullUpdate) -> dict[int: Optional[int],
                                                                         str: bool] | HTTPException:
         raise_exceptions_detail_not_found(self.repository, id)
         self.repository.full_update(id, schema)
         return {"success": True, "id": id}
 
-    def part_update(self, id, schema: PartUpdateDetailSchemaRequest) -> dict[int: Optional[int],
+    def part_update(self, id, schema: DetailPartUpdate) -> dict[int: Optional[int],
                                                                         str: bool] | HTTPException:
         raise_exceptions_detail_not_found(self.repository, id)
         update_params = {k: v for k, v in schema.model_dump().items() if v is not None}

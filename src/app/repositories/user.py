@@ -1,5 +1,4 @@
-from src.app.domain.schemas.user.requests.post import AddUserSchemaRequestWithHashedPassword
-from src.app.domain.schemas.user.requests.put import FullUpdateUserSchemaRequest
+from src.app.domain.schemas.user import UserFullUpdate
 from src.app.domain.interfaces.user import UserRepositoryInterface
 from src.app.core.common.repository import Repository
 from src.app.db.db import Base
@@ -22,8 +21,8 @@ class UserRepository(Repository, UserRepositoryInterface):
             response = self.session.query(self.table).filter_by(**filter_params).first()
             return [response]
 
-    def add(self, schema: AddUserSchemaRequestWithHashedPassword) -> int:
-        new_user = self.table(**schema.model_dump())
+    def add(self, add_params: dict) -> int:
+        new_user = self.table(**add_params)
         self.session.add(new_user)
         self.session.commit()
         return new_user.id
@@ -33,7 +32,7 @@ class UserRepository(Repository, UserRepositoryInterface):
         self.session.delete(user_to_delete)
         self.session.commit()
 
-    def full_update(self, id: int, schema: FullUpdateUserSchemaRequest) -> None:
+    def full_update(self, id: int, schema: UserFullUpdate) -> None:
         user_to_update = self.session.query(self.table).filter_by(id=id).first()
         user_to_update.username = schema.username
         user_to_update.email = schema.new_name

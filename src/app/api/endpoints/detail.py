@@ -9,18 +9,15 @@ from src.app.domain.exceptions.detail import (
     DetailAlreadyExistsBasicException,
 )
 from src.app.domain.exceptions.user import NotFoundUserBasicException
-from src.app.domain.schemas.detail.requests.get import GetDetailSchemaRequest
-from src.app.domain.schemas.detail.responses.get import GetDetailSchemaResponse
-from src.app.domain.schemas.user.responses.get import GetUserSchemaResponse
+from src.app.domain.schemas.detail import DetailSchema, DetailFilter
+from src.app.domain.schemas.user.schemas import UserSchema
 from src.app.domain.services.detail import DetailService
 from src.app.api.errors.http.detail import NotFoundDetailHttpException, DetailAlreadyExistsHttpException
-from src.app.domain.schemas.detail.requests.patch import PartUpdateDetailSchemaRequest
-from src.app.domain.schemas.detail.requests.post import AddDetailSchemaRequest
-from src.app.domain.schemas.detail.requests.put import FullUpdateDetailSchemaRequest
-from src.app.domain.schemas.detail.responses.delete import DeleteDetailSchemaResponse
-from src.app.domain.schemas.detail.responses.patch import PartUpdateDetailSchemaResponse
-from src.app.domain.schemas.detail.responses.post import AddDetailSchemaResponse
-from src.app.domain.schemas.detail.responses.put import FullUpdateDetailSchemaResponse
+from src.app.domain.schemas.detail import DetailPartUpdate
+from src.app.domain.schemas.detail import DetailCreate
+from src.app.domain.schemas.detail import DetailFullUpdate
+from src.app.core.shared.schemas import SuccessSchema
+from src.app.core.shared.schemas import BaseResponseSchema
 from src.app.utils.decorators import map_exceptions
 
 router = APIRouter(prefix=config.detail_router_config.prefix, tags=config.detail_router_config.tags)
@@ -34,8 +31,8 @@ router = APIRouter(prefix=config.detail_router_config.prefix, tags=config.detail
 @map_exceptions((NotFoundDetailBasicException,), (NotFoundDetailHttpException,))
 def get_detail(
         service: DetailService = Depends(DetailService),
-        schema: GetDetailSchemaRequest = Depends()
-) -> Dict[str, list[Dict[str, GetDetailSchemaResponse | Dict[str, list[GetUserSchemaResponse]]]]]:
+        schema: DetailFilter = Depends()
+) -> Dict[str, list[Dict[str, DetailSchema | Dict[str, list[UserSchema]]]]]:
     return service.get(schema)
 
 
@@ -48,8 +45,8 @@ def get_detail(
                 (DetailAlreadyExistsHttpException, NotFoundUserHttpException))
 def add_detail(
         service: DetailService = Depends(DetailService),
-        schema: AddDetailSchemaRequest = Depends()
-) -> AddDetailSchemaResponse:
+        schema: DetailCreate = Depends()
+) -> BaseResponseSchema:
     return service.add(schema)
 
 
@@ -59,7 +56,7 @@ def add_detail(
     description=config.detail_router_config.docs[3]["description"]
 )
 @map_exceptions((NotFoundDetailBasicException,), (NotFoundDetailHttpException,))
-def delete_detail(id: int, service: DetailService = Depends(DetailService)) -> DeleteDetailSchemaResponse:
+def delete_detail(id: int, service: DetailService = Depends(DetailService)) -> SuccessSchema:
     return service.delete(id)
 
 
@@ -71,8 +68,8 @@ def delete_detail(id: int, service: DetailService = Depends(DetailService)) -> D
 @map_exceptions((NotFoundDetailBasicException,), (NotFoundDetailHttpException,))
 def full_update_detail(
         id: int, service: DetailService = Depends(DetailService),
-        schema: FullUpdateDetailSchemaRequest = Depends()
-) -> FullUpdateDetailSchemaResponse:
+        schema: DetailFullUpdate = Depends()
+) -> BaseResponseSchema:
     return service.full_update(id, schema)
 
 
@@ -82,6 +79,6 @@ def full_update_detail(
 @map_exceptions((NotFoundDetailBasicException,), (NotFoundDetailHttpException,))
 def part_update_detail(
         id: int, service: DetailService = Depends(DetailService),
-        schema: PartUpdateDetailSchemaRequest = Depends()
-) -> PartUpdateDetailSchemaResponse:
+        schema: DetailPartUpdate = Depends()
+) -> BaseResponseSchema:
     return service.part_update(id, schema)

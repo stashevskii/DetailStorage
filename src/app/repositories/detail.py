@@ -1,5 +1,5 @@
-from src.app.domain.schemas.detail.requests.post import AddDetailSchemaRequest
-from src.app.domain.schemas.detail.requests.put import FullUpdateDetailSchemaRequest
+from src.app.domain.schemas.detail import DetailCreate
+from src.app.domain.schemas.detail import DetailFullUpdate
 from src.app.domain.interfaces.detail import DetailRepositoryInterface
 from src.app.core.common.repository import Repository
 from src.app.db.db import Base
@@ -21,7 +21,7 @@ class DetailRepository(Repository, DetailRepositoryInterface):
             response = self.session.query(self.table).filter_by(**filter_params).first()
             return [response]
 
-    def add(self, schema: AddDetailSchemaRequest) -> int:
+    def add(self, schema: DetailCreate) -> int:
         new_detail = self.table(**schema.model_dump())
         self.session.add(new_detail)
         self.session.commit()
@@ -32,7 +32,7 @@ class DetailRepository(Repository, DetailRepositoryInterface):
         self.session.delete(detail_to_delete)
         self.session.commit()
 
-    def full_update(self, id: int, schema: FullUpdateDetailSchemaRequest) -> None:
+    def full_update(self, id: int, schema: DetailFullUpdate) -> None:
         detail_to_update = self.session.query(self.table).filter_by(id=id).first()
         detail_to_update.lego_id = schema.new_lego_id
         detail_to_update.name = schema.new_name

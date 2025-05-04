@@ -65,11 +65,11 @@ class UserRouterConfig:
         },
         4: {
             "summary": "Full update user",
-            "description": "Full update Users endpoint"
+            "description": "Full update user endpoint"
         },
         5: {
             "summary": "Part update user",
-            "description": "Part update User endpoint"
+            "description": "Part update user endpoint"
         }
     }
 
