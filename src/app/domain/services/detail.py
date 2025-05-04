@@ -21,17 +21,14 @@ from .user import UserService
 from ..interfaces.detail import DetailServiceInterface
 from src.app.repositories.user import UserRepository
 from ..models.user import User
-from ..schemas.user import UserFilter
 
 
 class DetailService(Service, DetailServiceInterface):
     def __init__(
             self,
             session: DbDep,
-            user_service: UserService = Depends(UserService),
     ):
         super().__init__(DetailRepository(session, Detail))
-        self.user_service = user_service
         self.user_repo = UserRepository(session, User)
 
     def get(self, schema: DetailFilter) -> dict:
@@ -47,9 +44,10 @@ class DetailService(Service, DetailServiceInterface):
             details_and_owners.append(
                 {
                     "detail": i.as_dict(),
-                    "owner": self.user_service.get(UserFilter(id=i.user_id))
+                    "owner": i.user.as_dict()
                 }
             )
+
         return {"data": details_and_owners}
 
     def add(self, schema: DetailCreate) -> dict[int: Optional[int], str: bool] | HTTPException:

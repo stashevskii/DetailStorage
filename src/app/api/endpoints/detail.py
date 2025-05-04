@@ -32,7 +32,7 @@ router = APIRouter(prefix=config.detail_router_config.prefix, tags=config.detail
 def get_detail(
         service: DetailService = Depends(DetailService),
         schema: DetailFilter = Depends()
-) -> Dict[str, list[Dict[str, DetailSchema | Dict[str, list[UserSchema]]]]]:
+):
     return service.get(schema)
 
 

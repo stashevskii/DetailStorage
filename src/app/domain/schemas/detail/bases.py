@@ -9,7 +9,7 @@ class DetailBase(BaseSchema):
     lego_id: int = Field(ge=0)
     name: str = Field(max_length=30)
     quantity: int = Field(ge=0)
-    description: Optional[str] = Field(max_length=30)
+    description: Optional[str] = Field(max_length=30, default=None)
 
 
 class DetailBaseOptional(BaseSchema):

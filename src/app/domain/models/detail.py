@@ -1,6 +1,7 @@
 from sqlalchemy import Integer, String, ForeignKey, inspect
 from sqlalchemy.orm import Mapped, mapped_column
-from src.app.db.db import Base
+from src.app.db.db import Base, get_db
+from src.app.domain.models.user import User
 
 
 class Detail(Base):
@@ -8,6 +9,11 @@ class Detail(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     country_id: Mapped[int] = mapped_column(ForeignKey("countries.id"))
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+
+    @property
+    def user(self):
+        return get_db().query(User).filter_by(id=self.user_id).first()
+
     lego_id: Mapped[int] = mapped_column(Integer, nullable=False)
     name: Mapped[str] = mapped_column(String(30), nullable=False)
     quantity: Mapped[int] = mapped_column(Integer, nullable=False)
