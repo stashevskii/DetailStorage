@@ -1,0 +1,6 @@
+class NotFoundDetailBasicException(Exception):
+    ...
+
+
+class DetailAlreadyExistsBasicException(Exception):
+    ...
