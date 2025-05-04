@@ -1,5 +1,5 @@
 from src.app.domain.interfaces.search import SearchServiceInterface
-from src.app.core.common.service import ServiceWithParser
+from src.app.core.base.service import ServiceWithParser
 from src.app.domain.parsers.lego.parser import LegoParser
 from src.app.domain.schemas.search import DetailLegoId
 from src.app.domain.schemas.search import DetailName

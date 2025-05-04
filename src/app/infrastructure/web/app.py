@@ -4,8 +4,8 @@ from fastapi import FastAPI
 from src.app.core.config import config
 from src.app.api.errors.register import register_exceptions_handler
 from src.app.api.endpoints import router
-from src.app.db.db import engine, Base
-from src.app.utils.required_countries import create_required_countries
+from src.app.infrastructure.persistence.db import engine, Base
+from src.app.core.utils.required_countries import create_required_countries
 
 
 @asynccontextmanager

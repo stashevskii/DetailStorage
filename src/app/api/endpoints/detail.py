@@ -1,5 +1,3 @@
-from typing import Dict
-
 from fastapi import APIRouter, Depends
 
 from src.app.api.errors.http.user import NotFoundUserHttpException
@@ -9,16 +7,15 @@ from src.app.domain.exceptions.detail import (
     DetailAlreadyExistsBasicException,
 )
 from src.app.domain.exceptions.user import NotFoundUserBasicException
-from src.app.domain.schemas.detail import DetailSchema, DetailFilter
-from src.app.domain.schemas.user.schemas import UserSchema
+from src.app.domain.schemas.detail import DetailFilter
 from src.app.domain.services.detail import DetailService
 from src.app.api.errors.http.detail import NotFoundDetailHttpException, DetailAlreadyExistsHttpException
 from src.app.domain.schemas.detail import DetailPartUpdate
 from src.app.domain.schemas.detail import DetailCreate
 from src.app.domain.schemas.detail import DetailFullUpdate
-from src.app.core.shared.schemas import SuccessSchema
-from src.app.core.shared.schemas import BaseResponseSchema
-from src.app.utils.decorators import map_exceptions
+from src.app.domain.schemas.shared import SuccessSchema
+from src.app.domain.schemas.shared import BaseResponseSchema
+from src.app.core.utils.decorators import map_exceptions
 
 router = APIRouter(prefix=config.detail_router_config.prefix, tags=config.detail_router_config.tags)
 

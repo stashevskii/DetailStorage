@@ -1,9 +1,9 @@
 from src.app.domain.schemas.detail import DetailCreate
 from src.app.domain.schemas.detail import DetailFullUpdate
 from src.app.domain.interfaces.detail import DetailRepositoryInterface
-from src.app.core.common.repository import Repository
-from src.app.db.db import Base
-from src.app.domain.models.detail import Detail
+from src.app.core.base.repository import Repository
+from src.app.infrastructure.persistence.db import Base
+from src.app.infrastructure.persistence.models.detail import Detail
 
 
 class DetailRepository(Repository, DetailRepositoryInterface):

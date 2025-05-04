@@ -8,8 +8,8 @@ from src.app.domain.exceptions.user import (
     UserWithThisEmailAlreadyExistsBasicException,
     NotFoundUserBasicException
 )
-from src.app.repositories.detail import DetailRepository
-from src.app.repositories.user import UserRepository
+from src.app.infrastructure.persistence.repositories.detail import DetailRepository
+from src.app.infrastructure.persistence.repositories.user import UserRepository
 
 
 def exists(repo, param_name: str, value: Any) -> bool:

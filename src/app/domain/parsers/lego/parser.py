@@ -1,9 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 
-from src.app.core.common.parser import Parser
+from src.app.core.base.parser import Parser
 from src.app.domain.interfaces.parser import ParserInterface
-from src.app.utils.parsing import get_text_from_attribute_list
+from src.app.core.utils.parsing import get_text_from_attribute_list
 
 
 class LegoParser(Parser, ParserInterface):

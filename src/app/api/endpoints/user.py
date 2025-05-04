@@ -7,7 +7,7 @@ from src.app.api.errors.http.user import (
     UserWithThisEmailAlreadyExistsHttpException
 )
 from src.app.core.config import config
-from src.app.core.shared.schemas import BaseResponseSchema, SuccessSchema
+from src.app.domain.schemas.shared import BaseResponseSchema, SuccessSchema
 from src.app.domain.exceptions.user import (
     NotFoundUserBasicException,
     UserAlreadyExistsBasicException,
@@ -19,7 +19,7 @@ from src.app.domain.schemas.user import UserCreate
 from src.app.domain.schemas.user import UserFullUpdate
 from src.app.domain.schemas.user import UserSchema
 from src.app.domain.services.user import UserService
-from src.app.utils.decorators import map_exceptions
+from src.app.core.utils.decorators import map_exceptions
 
 router = APIRouter(prefix=config.user_router_config.prefix, tags=config.user_router_config.tags)
 

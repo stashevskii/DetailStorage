@@ -1,6 +1,6 @@
 from typing import Optional
 from pydantic import Field
-from src.app.core.common.schema import BaseSchema
+from src.app.core.base.schema import BaseSchema
 
 
 class SuccessSchema(BaseSchema):

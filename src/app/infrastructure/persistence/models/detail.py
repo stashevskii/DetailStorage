@@ -1,7 +1,7 @@
 from sqlalchemy import Integer, String, ForeignKey, inspect
 from sqlalchemy.orm import Mapped, mapped_column
-from src.app.db.db import Base, get_db
-from src.app.domain.models.user import User
+from src.app.infrastructure.persistence.db import Base, get_db
+from src.app.infrastructure.persistence.models.user import User
 
 
 class Detail(Base):

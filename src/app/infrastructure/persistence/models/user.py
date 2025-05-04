@@ -1,6 +1,6 @@
 from sqlalchemy import Integer, String
 from sqlalchemy.orm import mapped_column, Mapped
-from src.app.db.db import Base
+from src.app.infrastructure.persistence.db import Base
 
 
 class User(Base):

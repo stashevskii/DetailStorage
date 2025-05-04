@@ -1,9 +1,9 @@
 from src.app.domain.schemas.user import UserFullUpdate
 from src.app.domain.interfaces.user import UserRepositoryInterface
-from src.app.core.common.repository import Repository
-from src.app.db.db import Base
-from src.app.domain.models.user import User
-from src.app.utils.password import hash_password
+from src.app.core.base.repository import Repository
+from src.app.infrastructure.persistence.db import Base
+from src.app.infrastructure.persistence.models.user import User
+from src.app.core.utils.password import hash_password
 
 
 class UserRepository(Repository, UserRepositoryInterface):
