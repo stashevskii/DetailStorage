@@ -1,6 +1,6 @@
 from typing import Optional
 from fastapi import HTTPException
-from src.app.core.utils.dependencies import DbDep
+from src.app.infrastructure.dependencies import DbDep
 from src.app.domain.schemas.user import UserFilter
 from src.app.domain.schemas.user import UserPartUpdate
 from src.app.domain.schemas.user import UserCreate

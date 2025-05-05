@@ -1,7 +1,7 @@
 from typing import Optional
 from fastapi import HTTPException
 
-from src.app.core.utils.dependencies import DbDep
+from src.app.infrastructure.dependencies import DbDep
 from src.app.domain.schemas.detail import DetailFilter
 from src.app.domain.schemas.detail import DetailPartUpdate
 from src.app.domain.schemas.detail import DetailCreate
