@@ -1,7 +1,7 @@
 from typing import Optional
 from pydantic import Field
 from src.app.core.base.schema import BaseSchema
-from src.app.core.config import config
+from src.app.infrastructure.config.main import config
 
 
 class DetailBase(BaseSchema):

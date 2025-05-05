@@ -6,7 +6,7 @@ from src.app.api.errors.http.user import (
     UserAlreadyExistsHttpException,
     UserWithThisEmailAlreadyExistsHttpException
 )
-from src.app.core.config import config
+from src.app.infrastructure.config.main import config
 from src.app.domain.schemas.shared import BaseResponseSchema, SuccessSchema
 from src.app.domain.exceptions.user import (
     NotFoundUserBasicException,
