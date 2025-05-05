@@ -1,14 +1,11 @@
-from abc import abstractmethod, ABC
-from .cud import CudInterface
+from abc import ABC, abstractmethod
+from .crud import CrudInterface
 
 
-class DetailRepositoryInterface(CudInterface):
+class DetailRepositoryInterface(CrudInterface):
     @abstractmethod
-    def get(self, filter_params, all_obj):
+    def get_all(self):
         raise NotImplemented
 
 
-class DetailServiceInterface(CudInterface):
-    @abstractmethod
-    def get(self, schema):
-        raise NotImplemented
+class DetailServiceInterface(CrudInterface, ABC): ...

@@ -1,14 +1,11 @@
-from abc import abstractmethod
-from .cud import CudInterface
+from abc import abstractmethod, ABC
+from .crud import CrudInterface
 
 
-class UserRepositoryInterface(CudInterface):
+class UserRepositoryInterface(CrudInterface):
     @abstractmethod
-    def get(self, filter_params: dict, all_obj: bool) -> dict:
+    def get_all(self):
         raise NotImplemented
 
 
-class UserServiceInterface(CudInterface):
-    @abstractmethod
-    def get(self, schema):
-        raise NotImplemented
+class UserServiceInterface(CrudInterface, ABC): ...

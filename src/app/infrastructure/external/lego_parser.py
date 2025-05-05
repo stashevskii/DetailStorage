@@ -2,11 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 
 from src.app.core.base.parser import Parser
-from src.app.domain.interfaces.parser import ParserInterface
+from src.app.domain.interfaces.search import LegoParserInterface
 from src.app.core.utils.parsing import get_text_from_attribute_list
 
 
-class LegoParser(Parser, ParserInterface):
+class LegoParser(Parser, LegoParserInterface):
     def __init__(self):
         super().__init__("https://www.lego.com/en-us/pick-and-build/pick-a-brick")
 

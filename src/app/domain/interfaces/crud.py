@@ -1,7 +1,11 @@
 from abc import ABC, abstractmethod
 
 
-class CudInterface(ABC):  # Cud (not crud) because no reading/getting method
+class CrudInterface(ABC):
+    @abstractmethod
+    def get(self, schema):
+        raise NotImplemented
+
     @abstractmethod
     def add(self, schema):
         raise NotImplemented
@@ -11,9 +15,9 @@ class CudInterface(ABC):  # Cud (not crud) because no reading/getting method
         raise NotImplemented
 
     @abstractmethod
-    def full_update(self, id, schema):
+    def full_update(self, id, schema):  # put http request
         raise NotImplemented
 
     @abstractmethod
-    def part_update(self, id, update_params):
+    def part_update(self, id, schema):  # patch http request
         raise NotImplemented
