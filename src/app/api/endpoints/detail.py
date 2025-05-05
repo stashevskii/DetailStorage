@@ -8,7 +8,6 @@ from src.app.domain.exceptions.detail import (
 )
 from src.app.domain.exceptions.user import NotFoundUserBasicException
 from src.app.domain.schemas.detail import DetailFilter
-from src.app.domain.services.detail import DetailService
 from src.app.api.errors.http.detail import NotFoundDetailHttpException, DetailAlreadyExistsHttpException
 from src.app.domain.schemas.detail import DetailPartUpdate
 from src.app.domain.schemas.detail import DetailCreate
@@ -16,6 +15,7 @@ from src.app.domain.schemas.detail import DetailFullUpdate
 from src.app.domain.schemas.shared import SuccessSchema
 from src.app.domain.schemas.shared import BaseResponseSchema
 from src.app.core.utils.decorators import map_exceptions
+from src.app.infrastructure.dependencies import DetailServiceDep
 
 router = APIRouter(prefix=config.detail_router_config.prefix, tags=config.detail_router_config.tags)
 
@@ -27,7 +27,7 @@ router = APIRouter(prefix=config.detail_router_config.prefix, tags=config.detail
 )
 @map_exceptions((NotFoundDetailBasicException,), (NotFoundDetailHttpException,))
 def get_detail(
-        service: DetailService = Depends(DetailService),
+        service: DetailServiceDep,
         schema: DetailFilter = Depends()
 ):
     return service.get(schema)
@@ -41,7 +41,7 @@ def get_detail(
 @map_exceptions((DetailAlreadyExistsBasicException, NotFoundUserBasicException),
                 (DetailAlreadyExistsHttpException, NotFoundUserHttpException))
 def add_detail(
-        service: DetailService = Depends(DetailService),
+        service: DetailServiceDep,
         schema: DetailCreate = Depends()
 ) -> BaseResponseSchema:
     return service.add(schema)
@@ -53,7 +53,7 @@ def add_detail(
     description=config.detail_router_config.docs[3]["description"]
 )
 @map_exceptions((NotFoundDetailBasicException,), (NotFoundDetailHttpException,))
-def delete_detail(id: int, service: DetailService = Depends(DetailService)) -> SuccessSchema:
+def delete_detail(id: int, service: DetailServiceDep) -> SuccessSchema:
     return service.delete(id)
 
 
@@ -64,7 +64,7 @@ def delete_detail(id: int, service: DetailService = Depends(DetailService)) -> S
 )
 @map_exceptions((NotFoundDetailBasicException,), (NotFoundDetailHttpException,))
 def full_update_detail(
-        id: int, service: DetailService = Depends(DetailService),
+        id: int, service: DetailServiceDep,
         schema: DetailFullUpdate = Depends()
 ) -> BaseResponseSchema:
     return service.full_update(id, schema)
@@ -75,7 +75,7 @@ def full_update_detail(
               description=config.detail_router_config.docs[5]["description"])
 @map_exceptions((NotFoundDetailBasicException,), (NotFoundDetailHttpException,))
 def part_update_detail(
-        id: int, service: DetailService = Depends(DetailService),
+        id: int, service: DetailServiceDep,
         schema: DetailPartUpdate = Depends()
 ) -> BaseResponseSchema:
     return service.part_update(id, schema)

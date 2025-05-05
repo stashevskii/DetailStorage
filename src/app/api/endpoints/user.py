@@ -18,8 +18,8 @@ from src.app.domain.schemas.user import UserPartUpdate
 from src.app.domain.schemas.user import UserCreate
 from src.app.domain.schemas.user import UserFullUpdate
 from src.app.domain.schemas.user import UserSchema
-from src.app.domain.services.user import UserService
 from src.app.core.utils.decorators import map_exceptions
+from src.app.infrastructure.dependencies import UserServiceDep
 
 router = APIRouter(prefix=config.user_router_config.prefix, tags=config.user_router_config.tags)
 
@@ -30,7 +30,7 @@ router = APIRouter(prefix=config.user_router_config.prefix, tags=config.user_rou
     description=config.user_router_config.docs[1]["description"]
 )
 @map_exceptions((NotFoundUserBasicException,), (NotFoundUserHttpException,))
-def get_user(service: UserService = Depends(UserService),
+def get_user(service: UserServiceDep,
              schema: UserFilter = Depends()) -> Dict[str, list[UserSchema]]:
     return service.get(schema)
 
@@ -42,7 +42,7 @@ def get_user(service: UserService = Depends(UserService),
 )
 @map_exceptions((UserAlreadyExistsBasicException, UserWithThisEmailAlreadyExistsBasicException),
                 (UserAlreadyExistsHttpException, UserWithThisEmailAlreadyExistsHttpException))
-def add_user(service: UserService = Depends(UserService),
+def add_user(service: UserServiceDep,
              schema: UserCreate = Depends()) -> BaseResponseSchema:
     return service.add(schema)
 
@@ -53,7 +53,7 @@ def add_user(service: UserService = Depends(UserService),
     description=config.user_router_config.docs[3]["description"]
 )
 @map_exceptions((NotFoundUserBasicException,), (NotFoundUserHttpException,))
-def delete_user(id: int, service: UserService = Depends(UserService)) -> SuccessSchema:
+def delete_user(id: int, service: UserServiceDep) -> SuccessSchema:
     return service.delete(id)
 
 
@@ -63,7 +63,7 @@ def delete_user(id: int, service: UserService = Depends(UserService)) -> Success
     description=config.user_router_config.docs[4]["description"]
 )
 @map_exceptions((NotFoundUserBasicException,), (NotFoundUserHttpException,))
-def full_update_user(id: int, service: UserService = Depends(UserService),
+def full_update_user(id: int, service: UserServiceDep,
                      schema: UserFullUpdate = Depends()) -> BaseResponseSchema:
     return service.full_update(id, schema)
 
@@ -74,6 +74,6 @@ def full_update_user(id: int, service: UserService = Depends(UserService),
     description=config.user_router_config.docs[5]["description"]
 )
 @map_exceptions((NotFoundUserBasicException,), (NotFoundUserHttpException,))
-def part_update_user(id: int, service: UserService = Depends(UserService),
+def part_update_user(id: int, service: UserServiceDep,
                      schema: UserPartUpdate = Depends()) -> BaseResponseSchema:
     return service.part_update(id, schema)

@@ -1,21 +1,18 @@
 from typing import Optional
 from fastapi import HTTPException
-from src.app.infrastructure.dependencies import DbDep
 from src.app.domain.schemas.user import UserFilter
 from src.app.domain.schemas.user import UserPartUpdate
 from src.app.domain.schemas.user import UserCreate
 from src.app.domain.schemas.user import UserFullUpdate
-from src.app.infrastructure.persistence.models.user import User
-from src.app.infrastructure.persistence.repositories.user import UserRepository
 from src.app.core.utils.exists import raise_exceptions_user_exists, raise_exceptions_user_not_exists
 from src.app.core.base.service import Service
 from src.app.domain.exceptions.user import NotFoundUserBasicException
-from ..interfaces.user import UserServiceInterface
+from ..interfaces.user import UserServiceInterface, UserRepositoryInterface
 
 
 class UserService(Service, UserServiceInterface):
-    def __init__(self, session: DbDep):
-        super().__init__(UserRepository(session, User))
+    def __init__(self, user_repository: UserRepositoryInterface):
+        super().__init__(user_repository)
 
     def get(self, schema: UserFilter) -> dict[str: list] | HTTPException:
         response = self.repository.get(schema)

@@ -4,6 +4,7 @@ from src.app.infrastructure.config.main import config
 from src.app.domain.schemas.search import DetailLegoId
 from src.app.domain.schemas.search import DetailName
 from src.app.domain.services.search import SearchService
+from src.app.infrastructure.dependencies import SearchServiceDep
 
 router = APIRouter(prefix=config.search_router_config.prefix, tags=config.search_router_config.tags)
 
@@ -13,7 +14,7 @@ router = APIRouter(prefix=config.search_router_config.prefix, tags=config.search
     summary=config.search_router_config.docs[1]["summary"],
     description=config.search_router_config.docs[1]["description"]
 )
-def get_detail_by_lego_id(schema: DetailLegoId = Depends(), service: SearchService = Depends(SearchService)):
+def get_detail_by_lego_id(service: SearchServiceDep, schema: DetailLegoId = Depends()):
     return service.get_detail_by_lego_id(schema)
 
 
@@ -22,5 +23,5 @@ def get_detail_by_lego_id(schema: DetailLegoId = Depends(), service: SearchServi
     summary=config.search_router_config.docs[2]["summary"],
     description=config.search_router_config.docs[2]["description"]
 )
-def get_detail_by_name(schema: DetailName = Depends(), service: SearchService = Depends(SearchService)):
+def get_detail_by_name( service: SearchServiceDep, schema: DetailName = Depends()):
     return service.get_detail_by_name(schema)
