@@ -1,4 +1,5 @@
-from src.app.domain.schemas.detail import DetailCreate
+from src.app.core.utils.dicts import ignore_dict_element, delete_nones_from_dict
+from src.app.domain.schemas.detail import DetailCreate, DetailFilter, DetailPartUpdate
 from src.app.domain.schemas.detail import DetailFullUpdate
 from src.app.domain.interfaces.detail import DetailRepositoryInterface
 from src.app.core.base.repository import Repository
@@ -10,16 +11,13 @@ class DetailRepository(Repository, DetailRepositoryInterface):
     table = Detail
 
     def get_all(self) -> list[Base]:
-        response = self.session.query(self.table).all()
-        return response
+        return self.session.query(self.table).all()
 
-    def get(self, filter_params: dict, all_obj: bool) -> list[Base]:
-        if all_obj:
-            response = self.session.query(self.table).filter_by(**filter_params).all()
-            return response
-        else:
-            response = self.session.query(self.table).filter_by(**filter_params).first()
-            return [response]
+    def get(self, schema: DetailFilter) -> list[Base]:
+        query = self.session.query(self.table).filter_by(
+            **ignore_dict_element(delete_nones_from_dict(schema.model_dump()), "all_obj")
+        )
+        return query.all() if schema.all_obj else [query.first()]
 
     def add(self, schema: DetailCreate) -> int:
         new_detail = self.table(**schema.model_dump())
@@ -34,14 +32,10 @@ class DetailRepository(Repository, DetailRepositoryInterface):
 
     def full_update(self, id: int, schema: DetailFullUpdate) -> None:
         detail_to_update = self.session.query(self.table).filter_by(id=id).first()
-        detail_to_update.lego_id = schema.new_lego_id
-        detail_to_update.name = schema.new_name
-        detail_to_update.quantity = schema.new_quantity
-        detail_to_update.description = schema.new_description
+        for k, v in schema.model_dump().items(): setattr(detail_to_update, k, v)
         self.session.commit()
 
-    def part_update(self, id: int, update_params: dict) -> None:
+    def part_update(self, id: int, schema: DetailPartUpdate) -> None:
         detail_to_update = self.session.query(self.table).filter_by(id=id).first()
-        for k, v in update_params.items():
-            setattr(detail_to_update, k, v)
+        for k, v in delete_nones_from_dict(schema.model_dump()).items(): setattr(detail_to_update, k, v)
         self.session.commit()

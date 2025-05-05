@@ -30,12 +30,8 @@ class DetailService(Service, DetailServiceInterface):
         self.user_repo = UserRepository(session, User)
 
     def get(self, schema: DetailFilter) -> dict:
-        get_params = {k: v for k, v in schema.model_dump().items() if v is not None}
-
-        del get_params["all_obj"]
-        response = self.repository.get(get_params, schema.all_obj)
-        if response == [None] or not response:
-            raise NotFoundDetailBasicException
+        response = self.repository.get(schema)
+        if response == [None] or not response: raise NotFoundDetailBasicException
 
         details_and_owners = []
         for i in response:
@@ -60,14 +56,13 @@ class DetailService(Service, DetailServiceInterface):
         return {"success": True}
 
     def full_update(self, id, schema: DetailFullUpdate) -> dict[int: Optional[int],
-                                                                        str: bool] | HTTPException:
+                                                           str: bool] | HTTPException:
         raise_exceptions_detail_not_found(self.repository, id)
         self.repository.full_update(id, schema)
         return {"success": True, "id": id}
 
     def part_update(self, id, schema: DetailPartUpdate) -> dict[int: Optional[int],
-                                                                        str: bool] | HTTPException:
+                                                           str: bool] | HTTPException:
         raise_exceptions_detail_not_found(self.repository, id)
-        update_params = {k: v for k, v in schema.model_dump().items() if v is not None}
-        self.repository.part_update(id, update_params)
+        self.repository.part_update(id, schema)
         return {"success": True, "id": id}

@@ -1,4 +1,5 @@
-from src.app.domain.schemas.user import UserFullUpdate
+from src.app.core.utils.dicts import ignore_dict_element, delete_nones_from_dict
+from src.app.domain.schemas.user import UserFullUpdate, UserCreate, UserFilter, UserPartUpdate
 from src.app.domain.interfaces.user import UserRepositoryInterface
 from src.app.core.base.repository import Repository
 from src.app.infrastructure.persistence.db import Base
@@ -10,37 +11,42 @@ class UserRepository(Repository, UserRepositoryInterface):
     table = User
 
     def get_all(self) -> list[Base]:
-        response = self.session.query(self.table).all()
-        return response
+        return self.session.query(self.table).all()
 
-    def get(self, filter_params: dict, all_obj: bool) -> list[Base]:
-        if all_obj:
-            response = self.session.query(self.table).filter_by(**filter_params).all()
-            return response
-        else:
-            response = self.session.query(self.table).filter_by(**filter_params).first()
-            return [response]
+    def get(self, schema: UserFilter) -> list[Base]:
+        query = self.session.query(self.table).filter_by(
+            **ignore_dict_element(delete_nones_from_dict(schema.model_dump()), "all_obj")
+        )
+        return query.all() if schema.all_obj else [query.first()]
 
-    def add(self, add_params: dict) -> int:
-        new_user = self.table(**add_params)
-        self.session.add(new_user)
+    def add(self, schema: UserCreate) -> int:
+        new_detail = self.table(
+            **ignore_dict_element(schema.model_dump(), "password")
+              | {"hashed_password": hash_password(schema.password)}
+        )
+        self.session.add(new_detail)
         self.session.commit()
-        return new_user.id
+        return new_detail.id
 
     def delete(self, id: int) -> None:
-        user_to_delete = self.session.query(self.table).filter_by(id=id).first()
-        self.session.delete(user_to_delete)
+        detail_to_delete = self.session.query(self.table).filter_by(id=id).first()
+        self.session.delete(detail_to_delete)
         self.session.commit()
 
     def full_update(self, id: int, schema: UserFullUpdate) -> None:
-        user_to_update = self.session.query(self.table).filter_by(id=id).first()
-        user_to_update.username = schema.username
-        user_to_update.email = schema.new_name
-        user_to_update.hashed_password = hash_password(schema.password)
+        detail_to_update = self.session.query(self.table).filter_by(id=id).first()
+        for k, v in schema.model_dump().items():
+            if k == "password":
+                setattr(detail_to_update, "hashed_password", hash_password(schema.password))
+                continue
+            setattr(detail_to_update, k, v)
         self.session.commit()
 
-    def part_update(self, id: int, update_params: dict) -> None:
-        user_to_update = self.session.query(self.table).filter_by(id=id).first()
-        for k, v in update_params.items():
-            setattr(user_to_update, k, v)
+    def part_update(self, id: int, schema: UserPartUpdate) -> None:
+        detail_to_update = self.session.query(self.table).filter_by(id=id).first()
+        for k, v in delete_nones_from_dict(schema.model_dump()).items():
+            setattr(detail_to_update, k, v)
+            if k == "password":
+                setattr(detail_to_update, "hashed_password", hash_password(schema.password))
+                continue
         self.session.commit()
