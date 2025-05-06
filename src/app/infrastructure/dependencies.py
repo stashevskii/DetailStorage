@@ -1,7 +1,6 @@
 from typing import Annotated
 from fastapi import Depends
 from sqlalchemy.orm import Session
-
 from src.app.domain.interfaces.detail import DetailRepositoryInterface
 from src.app.domain.interfaces.user import UserRepositoryInterface
 from src.app.domain.services.detail import DetailService
@@ -35,8 +34,10 @@ def get_user_service(
 ):
     return UserService(user_repo)
 
+
 def get_search_service():
     return SearchService(LegoParser())
+
 
 DetailServiceDep = Annotated[DetailService, Depends(get_detail_service)]
 UserServiceDep = Annotated[UserService, Depends(get_user_service)]
