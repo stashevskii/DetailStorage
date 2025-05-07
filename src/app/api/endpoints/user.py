@@ -4,14 +4,14 @@ from fastapi import Depends, APIRouter
 from src.app.api.errors.http.user import (
     NotFoundUserHttpException,
     UserAlreadyExistsHttpException,
-    UserWithThisEmailAlreadyExistsHttpException
+    UserWithThisEmailAlreadyExistsHttpException, UserWithThisUsernameAlreadyExistsHttpException
 )
 from src.app.infrastructure.config.main import config
 from src.app.domain.schemas.shared import BaseResponseSchema, SuccessSchema
 from src.app.domain.exceptions.user import (
     NotFoundUserBasicException,
     UserAlreadyExistsBasicException,
-    UserWithThisEmailAlreadyExistsBasicException
+    UserWithThisEmailAlreadyExistsBasicException, UserWithThisUsernameAlreadyExistsBasicException
 )
 from src.app.domain.schemas.user import UserFilter
 from src.app.domain.schemas.user import UserPartUpdate
@@ -29,7 +29,7 @@ router = APIRouter(prefix=config.user_router_config.prefix, tags=config.user_rou
     summary=config.user_router_config.docs[1]["summary"],
     description=config.user_router_config.docs[1]["description"]
 )
-@map_exceptions((NotFoundUserBasicException,), (NotFoundUserHttpException,))
+@map_exceptions({NotFoundUserBasicException: NotFoundUserHttpException})
 def get_user(service: UserServiceDep,
              schema: UserFilter = Depends()) -> Dict[str, list[UserSchema]]:
     return service.get(schema)
@@ -40,8 +40,11 @@ def get_user(service: UserServiceDep,
     summary=config.user_router_config.docs[2]["summary"],
     description=config.user_router_config.docs[2]["description"]
 )
-@map_exceptions((UserAlreadyExistsBasicException, UserWithThisEmailAlreadyExistsBasicException),
-                (UserAlreadyExistsHttpException, UserWithThisEmailAlreadyExistsHttpException))
+@map_exceptions({
+    UserAlreadyExistsBasicException: UserAlreadyExistsHttpException,
+    UserWithThisEmailAlreadyExistsBasicException: UserWithThisUsernameAlreadyExistsHttpException,
+    UserWithThisUsernameAlreadyExistsBasicException: UserWithThisUsernameAlreadyExistsHttpException
+})
 def add_user(service: UserServiceDep,
              schema: UserCreate = Depends()) -> BaseResponseSchema:
     return service.add(schema)
@@ -52,7 +55,7 @@ def add_user(service: UserServiceDep,
     summary=config.user_router_config.docs[3]["summary"],
     description=config.user_router_config.docs[3]["description"]
 )
-@map_exceptions((NotFoundUserBasicException,), (NotFoundUserHttpException,))
+@map_exceptions({NotFoundUserBasicException: NotFoundUserHttpException})
 def delete_user(id: int, service: UserServiceDep) -> SuccessSchema:
     return service.delete(id)
 
@@ -62,7 +65,11 @@ def delete_user(id: int, service: UserServiceDep) -> SuccessSchema:
     summary=config.user_router_config.docs[4]["summary"],
     description=config.user_router_config.docs[4]["description"]
 )
-@map_exceptions((NotFoundUserBasicException,), (NotFoundUserHttpException,))
+@map_exceptions({
+    NotFoundUserBasicException: NotFoundUserHttpException,
+    UserWithThisEmailAlreadyExistsBasicException: UserWithThisEmailAlreadyExistsHttpException,
+    UserWithThisUsernameAlreadyExistsBasicException: UserWithThisUsernameAlreadyExistsHttpException
+})
 def full_update_user(id: int, service: UserServiceDep,
                      schema: UserFullUpdate = Depends()) -> BaseResponseSchema:
     return service.full_update(id, schema)
@@ -73,7 +80,11 @@ def full_update_user(id: int, service: UserServiceDep,
     summary=config.user_router_config.docs[5]["summary"],
     description=config.user_router_config.docs[5]["description"]
 )
-@map_exceptions((NotFoundUserBasicException,), (NotFoundUserHttpException,))
+@map_exceptions({
+    NotFoundUserBasicException: NotFoundUserHttpException,
+    UserWithThisEmailAlreadyExistsBasicException: UserWithThisEmailAlreadyExistsHttpException,
+    UserWithThisUsernameAlreadyExistsBasicException: UserWithThisUsernameAlreadyExistsHttpException
+})
 def part_update_user(id: int, service: UserServiceDep,
                      schema: UserPartUpdate = Depends()) -> BaseResponseSchema:
     return service.part_update(id, schema)

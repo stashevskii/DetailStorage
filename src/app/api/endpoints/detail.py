@@ -25,7 +25,7 @@ router = APIRouter(prefix=config.detail_router_config.prefix, tags=config.detail
     summary=config.detail_router_config.docs[1]["summary"],
     description=config.detail_router_config.docs[1]["description"],
 )
-@map_exceptions((NotFoundDetailBasicException,), (NotFoundDetailHttpException,))
+@map_exceptions({NotFoundDetailBasicException: NotFoundDetailHttpException})
 def get_detail(
         service: DetailServiceDep,
         schema: DetailFilter = Depends()
@@ -38,8 +38,10 @@ def get_detail(
     summary=config.detail_router_config.docs[2]["summary"],
     description=config.detail_router_config.docs[2]["description"]
 )
-@map_exceptions((DetailAlreadyExistsBasicException, NotFoundUserBasicException),
-                (DetailAlreadyExistsHttpException, NotFoundUserHttpException))
+@map_exceptions(
+    {DetailAlreadyExistsBasicException: DetailAlreadyExistsHttpException,
+    NotFoundUserBasicException: NotFoundUserHttpException}
+)
 def add_detail(
         service: DetailServiceDep,
         schema: DetailCreate = Depends()
@@ -52,7 +54,7 @@ def add_detail(
     summary=config.detail_router_config.docs[3]["summary"],
     description=config.detail_router_config.docs[3]["description"]
 )
-@map_exceptions((NotFoundDetailBasicException,), (NotFoundDetailHttpException,))
+@map_exceptions({NotFoundDetailBasicException: NotFoundDetailHttpException})
 def delete_detail(id: int, service: DetailServiceDep) -> SuccessSchema:
     return service.delete(id)
 
@@ -62,7 +64,7 @@ def delete_detail(id: int, service: DetailServiceDep) -> SuccessSchema:
     summary=config.detail_router_config.docs[4]["summary"],
     description=config.detail_router_config.docs[4]["description"]
 )
-@map_exceptions((NotFoundDetailBasicException,), (NotFoundDetailHttpException,))
+@map_exceptions({NotFoundDetailBasicException: NotFoundDetailHttpException})
 def full_update_detail(
         id: int, service: DetailServiceDep,
         schema: DetailFullUpdate = Depends()
@@ -73,7 +75,7 @@ def full_update_detail(
 @router.patch("/{id}",
               summary=config.detail_router_config.docs[5]["summary"],
               description=config.detail_router_config.docs[5]["description"])
-@map_exceptions((NotFoundDetailBasicException,), (NotFoundDetailHttpException,))
+@map_exceptions({NotFoundDetailBasicException: NotFoundDetailHttpException})
 def part_update_detail(
         id: int, service: DetailServiceDep,
         schema: DetailPartUpdate = Depends()

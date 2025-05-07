@@ -6,7 +6,7 @@ from src.app.infrastructure.persistence.db import Base
 class User(Base):
     __tablename__ = "users"
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    username: Mapped[str] = mapped_column(String(30), nullable=False)
+    username: Mapped[str] = mapped_column(String(30), nullable=False, unique=True)
     hashed_password: Mapped[bytes] = mapped_column(String, nullable=False)
     email: Mapped[str] = mapped_column(String, nullable=False, unique=True)
 
