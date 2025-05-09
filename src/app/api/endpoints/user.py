@@ -5,7 +5,7 @@ from src.app.api.errors import (
     UserWithThisEmailAlreadyExistsHttpException, UserWithThisUsernameAlreadyExistsHttpException
 )
 from src.app.infrastructure.config.main import config
-from src.app.domain.exceptions.user import (
+from src.app.domain.exceptions import (
     NotFoundUserBasicException,
     UserAlreadyExistsBasicException,
     UserWithThisEmailAlreadyExistsBasicException, UserWithThisUsernameAlreadyExistsBasicException

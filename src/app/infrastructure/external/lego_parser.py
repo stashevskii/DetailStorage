@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from src.app.core.base import Parser
-from src.app.domain.abstractions.search import LegoParserInterface
+from src.app.domain.abstractions import LegoParserInterface
 from src.app.core.utils import get_text_from_attribute_list
 from src.app.infrastructure.web.logger import get_logger
 

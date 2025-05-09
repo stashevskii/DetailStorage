@@ -1,9 +1,8 @@
 from src.app.domain.schemas import UserFilter, UserPartUpdate, UserCreate, UserFullUpdate
 from src.app.core.utils import check_user_and_raise_exceptions
 from src.app.core.base import Service
-from src.app.domain.exceptions.user import NotFoundUserBasicException
-from src.app.domain.abstractions.detail import DetailServiceInterface
-from src.app.domain.abstractions.user import UserServiceInterface, UserRepositoryInterface
+from src.app.domain.exceptions import NotFoundUserBasicException
+from src.app.domain.abstractions import UserServiceInterface, UserRepositoryInterface, DetailServiceInterface
 from src.app.infrastructure.persistence.models.user import User
 from src.app.infrastructure.web.logger import get_logger
 

@@ -1,13 +1,11 @@
 from typing import Any
-from src.app.domain.exceptions.detail import (
-    NotFoundDetailBasicException,
-    DetailAlreadyExistsBasicException,
-)
-from src.app.domain.exceptions.user import (
+from src.app.domain.exceptions import (
     UserAlreadyExistsBasicException,
     UserWithThisEmailAlreadyExistsBasicException,
     NotFoundUserBasicException,
-    UserWithThisUsernameAlreadyExistsBasicException
+    UserWithThisUsernameAlreadyExistsBasicException,
+    NotFoundDetailBasicException,
+    DetailAlreadyExistsBasicException,
 )
 
 

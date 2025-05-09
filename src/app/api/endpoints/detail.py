@@ -2,11 +2,11 @@ from fastapi import APIRouter, Depends
 
 from src.app.api.errors import NotFoundUserHttpException
 from src.app.infrastructure.config.main import config
-from src.app.domain.exceptions.detail import (
+from src.app.domain.exceptions import (
     NotFoundDetailBasicException,
     DetailAlreadyExistsBasicException,
+    NotFoundUserBasicException
 )
-from src.app.domain.exceptions.user import NotFoundUserBasicException
 from src.app.domain.schemas import DetailFilter, DetailSchema, DetailCreate, DetailPartUpdate, DetailFullUpdate
 from src.app.api.errors import NotFoundDetailHttpException, DetailAlreadyExistsHttpException
 from src.app.domain.schemas import SuccessSchema

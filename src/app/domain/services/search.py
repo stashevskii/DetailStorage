@@ -1,4 +1,4 @@
-from src.app.domain.abstractions.search import SearchServiceInterface, LegoParserInterface
+from src.app.domain.abstractions import SearchServiceInterface, LegoParserInterface
 from src.app.core.base import ParserService
 from src.app.domain.schemas import DetailLegoId, DetailName
 

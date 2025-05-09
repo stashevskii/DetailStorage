@@ -1,7 +1,7 @@
 from typing import Type
 from src.app.core.utils import ignore_dict_element, delete_nones_from_dict, hash_password
 from src.app.domain.schemas import UserFullUpdate, UserCreate, UserFilter, UserPartUpdate
-from src.app.domain.abstractions.user import UserRepositoryInterface
+from src.app.domain.abstractions import UserRepositoryInterface
 from src.app.core.base import Repository
 from src.app.infrastructure.persistence.models.user import User
 
