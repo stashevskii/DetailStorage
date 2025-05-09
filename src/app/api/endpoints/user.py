@@ -1,5 +1,3 @@
-from typing import Dict
-
 from fastapi import Depends, APIRouter
 from src.app.api.errors.http.user import (
     NotFoundUserHttpException,
@@ -7,7 +5,6 @@ from src.app.api.errors.http.user import (
     UserWithThisEmailAlreadyExistsHttpException, UserWithThisUsernameAlreadyExistsHttpException
 )
 from src.app.infrastructure.config.main import config
-from src.app.domain.schemas.shared import BaseResponseSchema, SuccessSchema
 from src.app.domain.exceptions.user import (
     NotFoundUserBasicException,
     UserAlreadyExistsBasicException,

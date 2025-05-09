@@ -3,7 +3,6 @@ from fastapi.params import Depends
 from src.app.infrastructure.config.main import config
 from src.app.domain.schemas.search import DetailLegoId
 from src.app.domain.schemas.search import DetailName
-from src.app.domain.services.search import SearchService
 from src.app.infrastructure.dependencies import SearchServiceDep
 
 router = APIRouter(prefix=config.search_router_config.prefix, tags=config.search_router_config.tags)

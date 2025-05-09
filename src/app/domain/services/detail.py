@@ -1,4 +1,4 @@
-from typing import Optional, Any, List
+from typing import Optional
 from fastapi import HTTPException
 from src.app.domain.schemas.detail import DetailFilter
 from src.app.domain.schemas.detail import DetailPartUpdate

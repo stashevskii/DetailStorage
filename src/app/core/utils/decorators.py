@@ -1,4 +1,4 @@
-from typing import Callable, Any
+from typing import Callable
 from functools import wraps
 
 

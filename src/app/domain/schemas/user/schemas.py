@@ -1,6 +1,5 @@
 from pydantic import Field
 from typing import Optional
-
 from ..detail import DetailSchema
 from .bases import UserBase, UserBaseOptional, UserBasePassword
 

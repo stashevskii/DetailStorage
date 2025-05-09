@@ -1,5 +1,4 @@
-from typing import List, Type
-
+from typing import Type
 from src.app.core.utils.dicts import ignore_dict_element, delete_nones_from_dict
 from src.app.domain.schemas.detail import DetailCreate, DetailFilter, DetailPartUpdate
 from src.app.domain.schemas.detail import DetailFullUpdate
