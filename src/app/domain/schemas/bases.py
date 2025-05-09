@@ -15,7 +15,7 @@ class DetailBase(BaseSchema):
 
 
 class DetailBaseOptional(BaseSchema):
-    country_id: Optional[int] = Field(ge=0, le=len(config.country_config.required_countries), default=None)
+    country_id: Optional[int] = Field(ge=1, le=len(config.country_config.required_countries), default=None)
     lego_id: Optional[int] = Field(ge=1, default=None)
     name: Optional[str] = Field(max_length=30, default=None)
     quantity: Optional[int] = Field(ge=0, default=None)
