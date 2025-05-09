@@ -1,5 +1,5 @@
 from sqlalchemy import Integer, String
-from sqlalchemy.orm import mapped_column, Mapped
+from sqlalchemy.orm import mapped_column, Mapped, relationship
 from src.app.infrastructure.persistence.db import Base
 
 
@@ -9,19 +9,7 @@ class User(Base):
     username: Mapped[str] = mapped_column(String(30), nullable=False, unique=True)
     hashed_password: Mapped[bytes] = mapped_column(String, nullable=False)
     email: Mapped[str] = mapped_column(String, nullable=False, unique=True)
-
-    def __init__(self, username: str, hashed_password: bytes, email: str, id=None):
-        self.id = id
-        self.username = username
-        self.hashed_password = hashed_password
-        self.email = email
+    details: Mapped[list["Detail"]] = relationship("Detail", back_populates="user")
 
     def __repr__(self):
         return f"User(id={self.id}, username={self.username}, email={self.email})"
-
-    def as_dict(self):
-        return {
-            "id": self.id,
-            "username": self.username,
-            "email": self.email
-        }

@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Any, List
 from fastapi import HTTPException
 from src.app.domain.schemas.detail import DetailFilter
 from src.app.domain.schemas.detail import DetailPartUpdate
@@ -11,6 +11,7 @@ from src.app.domain.exceptions.detail import (
 )
 from ..interfaces.detail import DetailServiceInterface, DetailRepositoryInterface
 from ..interfaces.user import UserRepositoryInterface
+from ...infrastructure.persistence.models.detail import Detail
 
 
 class DetailService(Service, DetailServiceInterface):
@@ -22,39 +23,25 @@ class DetailService(Service, DetailServiceInterface):
         super().__init__(detail_repository)
         self.user_repo = user_repository
 
-    def get(self, schema: DetailFilter) -> dict:
+    def get(self, schema: DetailFilter) -> list[Detail]:
         response = self.repository.get(schema)
-
         if response == [None] or not response: raise NotFoundDetailBasicException
-
-        details_and_owners = []
-        for i in response:
-            details_and_owners.append(
-                {
-                    "detail": i.as_dict(),
-                    "owner": i.user.as_dict()
-                }
-            )
-
-        return {"data": details_and_owners}
+        return [i for i in response]
 
     def add(self, schema: DetailCreate) -> dict[int: Optional[int], str: bool] | HTTPException:
         check_detail_raise_exceptions(self.repository, schema.id, check_exists=True)
         check_user_and_raise_exceptions(self.user_repo, schema.user_id, check_not_found=True)
-        new_id = self.repository.add(schema)
-        return {"id": new_id, "success": True}
+        return self.repository.add(schema)
 
     def delete(self, id: int) -> dict[str: bool] | HTTPException:
         check_detail_raise_exceptions(self.repository, id, check_not_found=True)
         self.repository.delete(id)
         return {"success": True}
 
-    def full_update(self, id, schema: DetailFullUpdate) -> dict[int: Optional[int], str: bool] | HTTPException:
+    def replace(self, id, schema: DetailFullUpdate) -> dict[int: Optional[int], str: bool] | HTTPException:
         check_detail_raise_exceptions(self.repository, id, check_not_found=True)
-        self.repository.full_update(id, schema)
-        return {"success": True, "id": id}
+        return self.repository.replace(id, schema)
 
     def part_update(self, id, schema: DetailPartUpdate) -> dict[int: Optional[int], str: bool] | HTTPException:
         check_detail_raise_exceptions(self.repository, id, check_not_found=True)
-        self.repository.part_update(id, schema)
-        return {"success": True, "id": id}
+        return self.repository.part_update(id, schema)

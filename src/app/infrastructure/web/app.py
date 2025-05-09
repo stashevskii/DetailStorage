@@ -7,7 +7,6 @@ from src.app.api.endpoints import router
 from src.app.infrastructure.persistence.db import engine, Base
 from src.app.core.utils.required_countries import create_required_countries
 
-
 @asynccontextmanager
 async def lifespan(application: FastAPI):
     Base.metadata.create_all(bind=engine)

@@ -14,26 +14,21 @@ class UserService(Service, UserServiceInterface):
     def __init__(self, user_repository: UserRepositoryInterface):
         super().__init__(user_repository)
 
-    def get(self, schema: UserFilter) -> dict[str: list] | HTTPException:
+    def get(self, schema: UserFilter) -> dict[str: list]:
         response = self.repository.get(schema)
-        if response == [None] or not response: raise NotFoundUserBasicException
-
-        res_response = []
-        for i in response: res_response.append(i.as_dict())
-
-        return {"data": res_response}
+        if response is None: raise NotFoundUserBasicException
+        return response
 
     def add(self, schema: UserCreate) -> dict[int: Optional[int], str: bool] | HTTPException:
         check_user_and_raise_exceptions(self.repository, schema.id, schema.email, schema.username, check_exists=True)
-        new_id = self.repository.add(schema)
-        return {"id": new_id, "success": True}
+        return self.repository.add(schema)
 
     def delete(self, id: int) -> dict[str: bool] | HTTPException:
         check_user_and_raise_exceptions(self.repository, id, check_not_found=True)
         self.repository.delete(id)
         return {"success": True}
 
-    def full_update(self, id, schema: UserFullUpdate) -> dict[int: Optional[int], str: bool] | HTTPException:
+    def replace(self, id, schema: UserFullUpdate) -> dict[int: Optional[int], str: bool] | HTTPException:
         check_user_and_raise_exceptions(self.repository, id, check_not_found=True)
         check_user_and_raise_exceptions(
             self.repository,
@@ -41,8 +36,7 @@ class UserService(Service, UserServiceInterface):
             username=schema.username,
             check_exists=True
         )
-        self.repository.full_update(id, schema)
-        return {"success": True, "id": id}
+        return self.repository.replace(id, schema)
 
     def part_update(self, id, schema: UserPartUpdate) -> dict[int: Optional[int], str: bool] | HTTPException:
         check_user_and_raise_exceptions(self.repository, id, check_not_found=True)
@@ -52,5 +46,4 @@ class UserService(Service, UserServiceInterface):
             username=schema.username,
             check_exists=True
         )
-        self.repository.part_update(id, schema)
-        return {"success": True, "id": id}
+        return self.repository.part_update(id, schema)

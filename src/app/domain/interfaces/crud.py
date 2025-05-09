@@ -15,7 +15,7 @@ class CrudInterface(ABC):
         raise NotImplemented
 
     @abstractmethod
-    def full_update(self, id, schema):  # put http request
+    def replace(self, id, schema):  # put http request
         raise NotImplemented
 
     @abstractmethod

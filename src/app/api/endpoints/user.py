@@ -30,8 +30,10 @@ router = APIRouter(prefix=config.user_router_config.prefix, tags=config.user_rou
     description=config.user_router_config.docs[1]["description"]
 )
 @map_exceptions({NotFoundUserBasicException: NotFoundUserHttpException})
-def get_user(service: UserServiceDep,
-             schema: UserFilter = Depends()) -> Dict[str, list[UserSchema]]:
+def get_user(
+        service: UserServiceDep,
+        schema: UserFilter = Depends()
+) -> UserSchema:
     return service.get(schema)
 
 
@@ -45,8 +47,10 @@ def get_user(service: UserServiceDep,
     UserWithThisEmailAlreadyExistsBasicException: UserWithThisUsernameAlreadyExistsHttpException,
     UserWithThisUsernameAlreadyExistsBasicException: UserWithThisUsernameAlreadyExistsHttpException
 })
-def add_user(service: UserServiceDep,
-             schema: UserCreate = Depends()) -> BaseResponseSchema:
+def add_user(
+        service: UserServiceDep,
+        schema: UserCreate = Depends()
+) -> UserSchema:
     return service.add(schema)
 
 
@@ -56,7 +60,7 @@ def add_user(service: UserServiceDep,
     description=config.user_router_config.docs[3]["description"]
 )
 @map_exceptions({NotFoundUserBasicException: NotFoundUserHttpException})
-def delete_user(id: int, service: UserServiceDep) -> SuccessSchema:
+def delete_user(id: int, service: UserServiceDep):
     return service.delete(id)
 
 
@@ -70,9 +74,12 @@ def delete_user(id: int, service: UserServiceDep) -> SuccessSchema:
     UserWithThisEmailAlreadyExistsBasicException: UserWithThisEmailAlreadyExistsHttpException,
     UserWithThisUsernameAlreadyExistsBasicException: UserWithThisUsernameAlreadyExistsHttpException
 })
-def full_update_user(id: int, service: UserServiceDep,
-                     schema: UserFullUpdate = Depends()) -> BaseResponseSchema:
-    return service.full_update(id, schema)
+def replace_user(
+        id: int,
+        service: UserServiceDep,
+        schema: UserFullUpdate = Depends()
+) -> UserSchema:
+    return service.replace(id, schema)
 
 
 @router.patch(
@@ -85,6 +92,9 @@ def full_update_user(id: int, service: UserServiceDep,
     UserWithThisEmailAlreadyExistsBasicException: UserWithThisEmailAlreadyExistsHttpException,
     UserWithThisUsernameAlreadyExistsBasicException: UserWithThisUsernameAlreadyExistsHttpException
 })
-def part_update_user(id: int, service: UserServiceDep,
-                     schema: UserPartUpdate = Depends()) -> BaseResponseSchema:
+def part_update_user(
+        id: int,
+        service: UserServiceDep,
+        schema: UserPartUpdate = Depends()
+) -> UserSchema:
     return service.part_update(id, schema)

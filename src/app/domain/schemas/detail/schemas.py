@@ -22,4 +22,3 @@ class DetailFullUpdate(DetailBase): ...
 
 class DetailSchema(DetailBase):
     id: int = Field(ge=0)
-    user_id: int = Field(ge=1)
