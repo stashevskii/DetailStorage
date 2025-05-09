@@ -2,7 +2,7 @@ from typing import Dict
 
 from fastapi import APIRouter, Depends
 
-from src.app.api.errors.http.user import NotFoundUserHttpException
+from src.app.api.errors import NotFoundUserHttpException
 from src.app.infrastructure.config.main import config
 from src.app.domain.exceptions.detail import (
     NotFoundDetailBasicException,
@@ -10,7 +10,7 @@ from src.app.domain.exceptions.detail import (
 )
 from src.app.domain.exceptions.user import NotFoundUserBasicException
 from src.app.domain.schemas import DetailFilter, DetailSchema, DetailCreate, DetailPartUpdate, DetailFullUpdate
-from src.app.api.errors.http.detail import NotFoundDetailHttpException, DetailAlreadyExistsHttpException
+from src.app.api.errors import NotFoundDetailHttpException, DetailAlreadyExistsHttpException
 from src.app.domain.schemas import SuccessSchema
 from src.app.core.utils.decorators import map_exceptions
 from src.app.infrastructure.dependencies import DetailServiceDep

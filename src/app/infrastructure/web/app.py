@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
 from src.app.infrastructure.config.main import config
-from src.app.api.errors.register import register_exceptions_handler
+from src.app.api.errors import register_exceptions_handler
 from src.app.api.endpoints import router
 from src.app.infrastructure.persistence.db import engine, Base
 from src.app.core.utils.required_countries import create_required_countries

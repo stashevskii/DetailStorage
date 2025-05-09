@@ -1,5 +1,5 @@
 from fastapi import Depends, APIRouter
-from src.app.api.errors.http.user import (
+from src.app.api.errors import (
     NotFoundUserHttpException,
     UserAlreadyExistsHttpException,
     UserWithThisEmailAlreadyExistsHttpException, UserWithThisUsernameAlreadyExistsHttpException
