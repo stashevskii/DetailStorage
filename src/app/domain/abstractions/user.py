@@ -1,11 +1,8 @@
-from abc import abstractmethod, ABC
-from .crud import CrudInterface
+from abc import ABC
+from .basic import CrudInterface, GetAllInterface, GetByIdInterface
 
 
-class UserRepositoryInterface(CrudInterface):
-    @abstractmethod
-    def get_all(self):
-        raise NotImplemented
+class UserRepositoryInterface(CrudInterface, GetAllInterface, GetByIdInterface, ABC): ...
 
 
-class UserServiceInterface(CrudInterface, ABC): ...
+class UserServiceInterface(CrudInterface, GetByIdInterface, ABC): ...

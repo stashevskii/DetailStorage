@@ -32,9 +32,9 @@ class UserRepository(Repository, UserRepositoryInterface):
         self.session.delete(user_to_delete)
         self.session.commit()
 
-    def replace(self, id: int, schema: UserFullUpdate) -> User | None:
+    def basic_update(self, id: int, schema: UserFullUpdate | UserPartUpdate, dict_func=lambda _: _):
         user_to_update = self.session.query(self.table).filter_by(id=id).first()
-        for k, v in schema.model_dump().items():
+        for k, v in dict_func(schema.model_dump().items()):
             if k == "password":
                 setattr(user_to_update, "hashed_password", hash_password(schema.password))
                 continue
@@ -42,12 +42,8 @@ class UserRepository(Repository, UserRepositoryInterface):
         self.session.commit()
         return user_to_update
 
+    def replace(self, id: int, schema: UserFullUpdate) -> User | None:
+        return self.basic_update(id, schema)
+
     def part_update(self, id: int, schema: UserPartUpdate) -> User | None:
-        user_to_update = self.session.query(self.table).filter_by(id=id).first()
-        for k, v in delete_nones_from_dict(schema.model_dump()).items():
-            setattr(user_to_update, k, v)
-            if k == "password":
-                setattr(user_to_update, "hashed_password", hash_password(schema.password))
-                continue
-        self.session.commit()
-        return user_to_update
+        return self.basic_update(id, schema, delete_nones_from_dict)

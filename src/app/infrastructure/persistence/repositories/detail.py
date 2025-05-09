@@ -29,14 +29,14 @@ class DetailRepository(Repository, DetailRepositoryInterface):
         self.session.delete(detail_to_delete)
         self.session.commit()
 
-    def replace(self, id: int, schema: DetailFullUpdate) -> None:
+    def basic_update(self, id: int, schema: DetailFullUpdate | DetailPartUpdate, dict_func=lambda _: _):
         detail_to_update = self.session.query(self.table).filter_by(id=id).first()
-        for k, v in schema.model_dump().items(): setattr(detail_to_update, k, v)
+        for k, v in dict_func(schema.model_dump().items()): setattr(detail_to_update, k, v)
         self.session.commit()
         return detail_to_update
 
+    def replace(self, id: int, schema: DetailFullUpdate) -> None:
+        return self.basic_update(id, schema)
+
     def part_update(self, id: int, schema: DetailPartUpdate) -> None:
-        detail_to_update = self.session.query(self.table).filter_by(id=id).first()
-        for k, v in delete_nones_from_dict(schema.model_dump()).items(): setattr(detail_to_update, k, v)
-        self.session.commit()
-        return detail_to_update
+        return self.basic_update(id, schema, delete_nones_from_dict)

@@ -21,3 +21,15 @@ class CrudInterface(ABC):
     @abstractmethod
     def part_update(self, id, schema):  # patch http request
         raise NotImplemented
+
+
+class GetAllInterface(ABC):
+    @abstractmethod
+    def get_all(self):
+        raise NotImplemented
+
+
+class GetByIdInterface(ABC):
+    @abstractmethod
+    def get_by_id(self, id):
+        raise NotImplemented

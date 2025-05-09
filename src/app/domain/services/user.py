@@ -15,6 +15,9 @@ class UserService(Service, UserServiceInterface):
         super().__init__(user_repository)
         self.detail_service = detail_service
 
+    def get_all(self):
+        return self.repository.get_all()
+
     def get_by_id(self, id: int) -> User:
         return self.repository.get_by_id(id=id)
 

@@ -91,3 +91,13 @@ def part_update_user(
         schema: UserPartUpdate = Depends()
 ) -> UserSchema:
     return service.part_update(id, schema)
+
+
+@router.get(
+    "/all",
+    summary=config.user_router_config.docs[6]["summary"],
+    description=config.user_router_config.docs[6]["description"],
+)
+@map_exceptions({NotFoundUserBasicException: NotFoundUserHttpException})
+def get_all_users(service: UserServiceDep) -> list[UserSchema]:
+    return service.get_all()
