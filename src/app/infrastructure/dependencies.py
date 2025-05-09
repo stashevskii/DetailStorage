@@ -3,7 +3,7 @@ from fastapi import Depends
 from sqlalchemy.orm import Session
 from src.app.domain.abstractions import DetailRepositoryInterface, DetailServiceInterface, UserRepositoryInterface
 from src.app.domain.services import DetailService, SearchService, UserService
-from src.app.infrastructure.external.lego_parser import LegoParser
+from src.app.infrastructure.external import LegoParser
 from src.app.infrastructure.persistence.db import get_db
 from src.app.infrastructure.persistence.repositories.detail import DetailRepository
 from src.app.infrastructure.persistence.repositories.user import UserRepository

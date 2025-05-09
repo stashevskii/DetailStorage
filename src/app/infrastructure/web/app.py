@@ -2,12 +2,13 @@ import logging
 from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
-from src.app.infrastructure.config.main import config
+from src.app.infrastructure.config import config
 from src.app.api.errors import register_exceptions_handler
 from src.app.api.endpoints import router
-from src.app.infrastructure.persistence.db import engine, Base
+from src.app.infrastructure.persistence.db import engine
+from src.app.core.base import Base
 from src.app.core.utils import create_required_countries
-from src.app.infrastructure.web.logger import configure_logging, get_logger
+from src.app.core.utils import configure_logging, get_logger
 
 log = get_logger(__name__)
 

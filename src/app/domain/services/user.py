@@ -1,10 +1,9 @@
 from src.app.domain.schemas import UserFilter, UserPartUpdate, UserCreate, UserFullUpdate
-from src.app.core.utils import check_user_and_raise_exceptions
+from src.app.core.utils import check_user_and_raise_exceptions, get_logger
 from src.app.core.base import Service
 from src.app.domain.exceptions import NotFoundUserBasicException
 from src.app.domain.abstractions import UserServiceInterface, UserRepositoryInterface, DetailServiceInterface
-from src.app.infrastructure.persistence.models.user import User
-from src.app.infrastructure.web.logger import get_logger
+from src.app.infrastructure.persistence.models import User
 
 log = get_logger(__name__)
 

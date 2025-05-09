@@ -2,9 +2,7 @@ from pydantic_settings import BaseSettings
 from .app import AppConfig
 from .countries import CountryConfig
 from .db import DbConfig
-from .routers.detail import DetailRouterConfig
-from .routers.search import SearchRouterConfig
-from .routers.user import UserRouterConfig
+from .routers import DetailRouterConfig, SearchRouterConfig, UserRouterConfig
 
 
 class Config(BaseSettings):

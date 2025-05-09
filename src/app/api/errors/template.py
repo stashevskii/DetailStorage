@@ -1,6 +1,6 @@
 from fastapi import Request
 from fastapi.responses import JSONResponse
-from src.app.infrastructure.web.logger import get_logger
+from src.app.core.utils import get_logger
 
 log = get_logger(__name__)
 

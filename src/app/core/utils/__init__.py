@@ -4,6 +4,7 @@ from .exists import check_detail_raise_exceptions, check_user_and_raise_exceptio
 from .parsing import get_text_from_attribute_list
 from .password import hash_password
 from .required_countries import create_required_countries
+from .logger import configure_logging, get_logger
 
 __all__ = [
     "map_exceptions",
@@ -13,5 +14,7 @@ __all__ = [
     "check_user_and_raise_exceptions",
     "get_text_from_attribute_list",
     "hash_password",
-    "create_required_countries"
+    "create_required_countries",
+    "configure_logging",
+    "get_logger"
 ]

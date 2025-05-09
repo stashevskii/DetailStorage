@@ -1,6 +1,6 @@
-from src.app.infrastructure.config.main import config
+from src.app.infrastructure.config import config
 from src.app.infrastructure.persistence.db import get_db
-from src.app.infrastructure.persistence.models.country import Country
+from src.app.infrastructure.persistence.models import Country
 
 
 def create_required_countries():

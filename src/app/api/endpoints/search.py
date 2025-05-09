@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from fastapi.params import Depends
-from src.app.infrastructure.config.main import config
+from src.app.infrastructure.config import config
 from src.app.domain.schemas import DetailLegoId, DetailName
 from src.app.infrastructure.dependencies import SearchServiceDep
 

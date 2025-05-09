@@ -7,19 +7,19 @@ class DetailRouterConfig:
             "description": "Get details by parameters endpoint"
         },
         2: {
-            "summary": "Add new details",
-            "description": "Add new details endpoint"
+            "summary": "Add new detail",
+            "description": "Add new detail endpoint"
         },
         3: {
-            "summary": "Delete details",
-            "description": "Delete details endpoint"
+            "summary": "Delete detail",
+            "description": "Delete detail endpoint"
         },
         4: {
-            "summary": "Full update details",
-            "description": "Full update details endpoint"
+            "summary": "Full update detail",
+            "description": "Full update detail endpoint"
         },
         5: {
-            "summary": "Part update details",
-            "description": "Part update details endpoint"
+            "summary": "Part update detail",
+            "description": "Part update detail endpoint"
         }
     }

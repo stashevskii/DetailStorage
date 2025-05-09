@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Depends
-
 from src.app.api.errors import NotFoundUserHttpException
-from src.app.infrastructure.config.main import config
+from src.app.infrastructure.config import config
 from src.app.domain.exceptions import (
     NotFoundDetailBasicException,
     DetailAlreadyExistsBasicException,

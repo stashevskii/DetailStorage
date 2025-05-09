@@ -1,6 +1,6 @@
 from typing import Type
 from sqlalchemy.orm import Session
-from src.app.infrastructure.persistence.db import Base
+from src.app.core.base import Base
 
 
 class Repository:

@@ -3,8 +3,8 @@ class UserRouterConfig:
     tags: list[str] = ["Users"]
     docs: dict[int: dict[str: str]] = {
         1: {
-            "summary": "Get users by parameters",
-            "description": "Get users by parameters endpoint"
+            "summary": "Get user by parameters",
+            "description": "Get user by parameters endpoint"
         },
         2: {
             "summary": "Add new user",
@@ -21,5 +21,9 @@ class UserRouterConfig:
         5: {
             "summary": "Part update user",
             "description": "Part update user endpoint"
+        },
+        6: {
+            "summary": "Get all users",
+            "description": "Get all users endpoint"
         }
     }

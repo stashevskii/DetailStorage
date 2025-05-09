@@ -1,7 +1,6 @@
 from typing import Callable
 from functools import wraps
-
-from src.app.infrastructure.web.logger import get_logger
+from .logger import get_logger
 
 log = get_logger(__name__)
 

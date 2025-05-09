@@ -1,4 +1,4 @@
-from src.app.infrastructure.web.app import run, app
+from src.app.infrastructure.web import run, app
 
 if __name__ == "__main__":
     run()

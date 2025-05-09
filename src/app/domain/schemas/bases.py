@@ -3,7 +3,7 @@ from typing import Optional
 from pydantic import Field, EmailStr
 
 from src.app.core.base import BaseSchema
-from src.app.infrastructure.config.main import config
+from src.app.infrastructure.config import config
 
 
 class DetailBase(BaseSchema):

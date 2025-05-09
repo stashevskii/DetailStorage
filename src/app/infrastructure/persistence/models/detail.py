@@ -1,6 +1,6 @@
 from sqlalchemy import Integer, String, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from src.app.infrastructure.persistence.db import Base
+from src.app.core.base import Base
 
 
 class Detail(Base):

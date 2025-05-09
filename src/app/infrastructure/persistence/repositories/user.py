@@ -3,7 +3,7 @@ from src.app.core.utils import ignore_dict_element, delete_nones_from_dict, hash
 from src.app.domain.schemas import UserFullUpdate, UserCreate, UserFilter, UserPartUpdate
 from src.app.domain.abstractions import UserRepositoryInterface
 from src.app.core.base import Repository
-from src.app.infrastructure.persistence.models.user import User
+from src.app.infrastructure.persistence.models import User
 
 
 class UserRepository(Repository, UserRepositoryInterface):
