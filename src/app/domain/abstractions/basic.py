@@ -27,9 +27,3 @@ class GetAllInterface(ABC):
     @abstractmethod
     def get_all(self):
         raise NotImplemented
-
-
-class GetByIdInterface(ABC):
-    @abstractmethod
-    def get_by_id(self, id):
-        raise NotImplemented
