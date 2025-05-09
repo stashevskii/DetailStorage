@@ -1,15 +1,15 @@
 from sqlalchemy import Integer, String, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from src.app.infrastructure.persistence.db import Base
-from src.app.infrastructure.persistence.models.user import User
 
 
 class Detail(Base):
     __tablename__ = "details"
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    country_id: Mapped[int] = mapped_column(ForeignKey("countries.id"))
+    country_id: Mapped[int] = mapped_column(Integer, ForeignKey("countries.id"), nullable=False)
+    country: Mapped["Country"] = relationship("Country", back_populates="details")
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
-    user: Mapped["User"] = relationship(back_populates="details")
+    user: Mapped["User"] = relationship("User", back_populates="details")
     lego_id: Mapped[int] = mapped_column(Integer, nullable=False)
     name: Mapped[str] = mapped_column(String(30), nullable=False)
     quantity: Mapped[int] = mapped_column(Integer, nullable=False)

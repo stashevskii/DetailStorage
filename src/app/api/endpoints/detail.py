@@ -9,12 +9,9 @@ from src.app.domain.exceptions.detail import (
     DetailAlreadyExistsBasicException,
 )
 from src.app.domain.exceptions.user import NotFoundUserBasicException
-from src.app.domain.schemas.detail import DetailFilter, DetailSchema
+from src.app.domain.schemas import DetailFilter, DetailSchema, DetailCreate, DetailPartUpdate, DetailFullUpdate
 from src.app.api.errors.http.detail import NotFoundDetailHttpException, DetailAlreadyExistsHttpException
-from src.app.domain.schemas.detail import DetailPartUpdate
-from src.app.domain.schemas.detail import DetailCreate
-from src.app.domain.schemas.detail import DetailFullUpdate
-from src.app.domain.schemas.shared import SuccessSchema
+from src.app.domain.schemas import SuccessSchema
 from src.app.core.utils.decorators import map_exceptions
 from src.app.infrastructure.dependencies import DetailServiceDep
 

@@ -10,11 +10,7 @@ from src.app.domain.exceptions.user import (
     UserAlreadyExistsBasicException,
     UserWithThisEmailAlreadyExistsBasicException, UserWithThisUsernameAlreadyExistsBasicException
 )
-from src.app.domain.schemas.user import UserFilter
-from src.app.domain.schemas.user import UserPartUpdate
-from src.app.domain.schemas.user import UserCreate
-from src.app.domain.schemas.user import UserFullUpdate
-from src.app.domain.schemas.user import UserSchema
+from src.app.domain.schemas import UserFilter, UserPartUpdate, UserCreate, UserFullUpdate, UserSchema
 from src.app.core.utils.decorators import map_exceptions
 from src.app.infrastructure.dependencies import UserServiceDep
 
