@@ -32,7 +32,7 @@ def create_app() -> FastAPI:
         description=config.app_config.app_description,
         lifespan=lifespan
     )
-    include_main_router(app)
+    include_main_router(application)
     register_exceptions_handler(application)
     return application
 
