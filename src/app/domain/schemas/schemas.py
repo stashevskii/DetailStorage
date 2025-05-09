@@ -4,7 +4,7 @@ from .bases import (
     DetailBase, UserBasePassword, UserBase,
     UserBaseOptional, DetailBaseOptional, PageLimitSchema
 )
-from src.app.core.base.schema import BaseSchema
+from src.app.core.base import BaseSchema
 
 
 # Country schema

@@ -11,7 +11,7 @@ from src.app.domain.exceptions.user import (
     UserWithThisEmailAlreadyExistsBasicException, UserWithThisUsernameAlreadyExistsBasicException
 )
 from src.app.domain.schemas import UserFilter, UserPartUpdate, UserCreate, UserFullUpdate, UserSchema
-from src.app.core.utils.decorators import map_exceptions
+from src.app.core.utils import map_exceptions
 from src.app.infrastructure.dependencies import UserServiceDep
 
 router = APIRouter(prefix=config.user_router_config.prefix, tags=config.user_router_config.tags)

@@ -1,5 +1,3 @@
-from typing import Dict
-
 from fastapi import APIRouter, Depends
 
 from src.app.api.errors import NotFoundUserHttpException
@@ -12,7 +10,7 @@ from src.app.domain.exceptions.user import NotFoundUserBasicException
 from src.app.domain.schemas import DetailFilter, DetailSchema, DetailCreate, DetailPartUpdate, DetailFullUpdate
 from src.app.api.errors import NotFoundDetailHttpException, DetailAlreadyExistsHttpException
 from src.app.domain.schemas import SuccessSchema
-from src.app.core.utils.decorators import map_exceptions
+from src.app.core.utils import map_exceptions
 from src.app.infrastructure.dependencies import DetailServiceDep
 
 router = APIRouter(prefix=config.detail_router_config.prefix, tags=config.detail_router_config.tags)

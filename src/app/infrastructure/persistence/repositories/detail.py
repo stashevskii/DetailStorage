@@ -1,8 +1,8 @@
 from typing import Type
-from src.app.core.utils.dicts import ignore_dict_element, delete_nones_from_dict
+from src.app.core.utils import ignore_dict_element, delete_nones_from_dict
 from src.app.domain.schemas import DetailCreate, DetailFilter, DetailPartUpdate, DetailFullUpdate
 from src.app.domain.abstractions.detail import DetailRepositoryInterface
-from src.app.core.base.repository import Repository
+from src.app.core.base import Repository
 from src.app.infrastructure.persistence.models.detail import Detail
 
 

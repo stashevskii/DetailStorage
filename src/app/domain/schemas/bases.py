@@ -2,7 +2,7 @@ from typing import Optional
 
 from pydantic import Field, EmailStr
 
-from src.app.core.base.schema import BaseSchema
+from src.app.core.base import BaseSchema
 from src.app.infrastructure.config.main import config
 
 

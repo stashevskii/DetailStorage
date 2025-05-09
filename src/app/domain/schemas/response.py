@@ -1,5 +1,5 @@
 from pydantic import Field
-from src.app.core.base.schema import BaseSchema
+from src.app.core.base import BaseSchema
 
 
 class SuccessSchema(BaseSchema):
