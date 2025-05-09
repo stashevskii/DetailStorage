@@ -1,7 +1,4 @@
-from typing import Type, List
-
-from sqlalchemy.orm import Query
-
+from typing import Type
 from src.app.core.utils.dicts import ignore_dict_element, delete_nones_from_dict
 from src.app.domain.schemas.user import UserFullUpdate, UserCreate, UserFilter, UserPartUpdate
 from src.app.domain.interfaces.user import UserRepositoryInterface
@@ -18,6 +15,9 @@ class UserRepository(Repository, UserRepositoryInterface):
 
     def get(self, schema: UserFilter) -> User | None:
         return self.session.query(self.table).filter_by(**delete_nones_from_dict(schema.model_dump())).first()
+
+    def get_by_id(self, id: int) -> User | None:
+        return self.session.query(self.table).filter_by(id=id).first()
 
     def add(self, schema: UserCreate) -> User:
         new_user = self.table(

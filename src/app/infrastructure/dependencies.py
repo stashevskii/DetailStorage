@@ -30,9 +30,10 @@ def get_detail_service(
 
 
 def get_user_service(
-        user_repo: UserRepositoryInterface = Depends(get_user_repo)
+        user_repo: UserRepositoryInterface = Depends(get_user_repo),
+        detail_repo: DetailRepositoryInterface = Depends(get_detail_repo)
 ):
-    return UserService(user_repo)
+    return UserService(user_repo, detail_repo)
 
 
 def get_search_service():

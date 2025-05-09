@@ -5,7 +5,6 @@ from src.app.domain.schemas.detail import DetailCreate, DetailFilter, DetailPart
 from src.app.domain.schemas.detail import DetailFullUpdate
 from src.app.domain.interfaces.detail import DetailRepositoryInterface
 from src.app.core.base.repository import Repository
-from src.app.infrastructure.persistence.db import Base
 from src.app.infrastructure.persistence.models.detail import Detail
 
 
