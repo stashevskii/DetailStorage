@@ -6,7 +6,7 @@ from .http.user import (
     UserWithThisUsernameAlreadyExistsHttpException
 )
 from .register import register_exceptions_handler
-from .template import ExceptionResponseTemplate
+from .response import ExceptionResponseTemplate
 
 __all__ = [
     "NotFoundDetailHttpException",

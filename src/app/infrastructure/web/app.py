@@ -9,6 +9,7 @@ from src.app.infrastructure.persistence.db import engine
 from src.app.core.base import Base
 from src.app.core.utils import create_required_countries
 from src.app.core.utils import configure_logging, get_logger
+from .middlewares.register import register_middlewares
 
 log = get_logger(__name__)
 
@@ -33,6 +34,7 @@ def create_app() -> FastAPI:
         lifespan=lifespan
     )
     include_main_router(application)
+    register_middlewares(application)
     register_exceptions_handler(application)
     return application
 

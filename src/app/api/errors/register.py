@@ -1,6 +1,6 @@
 from starlette.exceptions import HTTPException
 from fastapi import FastAPI
-from .template import ExceptionResponseTemplate
+from .response import ExceptionResponseTemplate
 
 
 def register_exceptions_handler(app: FastAPI):
