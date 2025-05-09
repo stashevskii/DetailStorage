@@ -1,5 +1,8 @@
 from fastapi import Request
 from fastapi.responses import JSONResponse
+from src.app.infrastructure.web.logger import get_logger
+
+log = get_logger(__name__)
 
 
 class ExceptionResponseTemplate:
@@ -8,6 +11,7 @@ class ExceptionResponseTemplate:
         self.exc = exc
 
     def __str__(self):
+        log.error("HTTP error %s: %s", self.exc.status_code, self.exc.detail)
         return JSONResponse(
             status_code=self.exc.status_code,
             content={
