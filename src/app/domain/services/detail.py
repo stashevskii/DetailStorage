@@ -23,29 +23,29 @@ class DetailService(Service, DetailServiceInterface):
         self.user_repo = user_repository
 
     def get(self, schema: DetailFilter) -> list[Detail]:
-        log.info("Trying to get details with following param: %s", schema)
+        log.info("Getting details with following param: %s", schema)
         response = self.repository.get(schema)
         if response == [None] or not response: raise NotFoundDetailBasicException
         return [i for i in response]
 
     def add(self, schema: DetailCreate) -> Detail:
-        log.info("Trying to add detail with following params: %s", schema)
+        log.info("Adding detail with following params: %s", schema)
         check_detail_raise_exceptions(self.repository, schema.id, check_exists=True)
         check_user_and_raise_exceptions(self.user_repo, schema.user_id, check_not_found=True)
         return self.repository.add(schema)
 
     def delete(self, id: int) -> dict[str: bool]:
-        log.info("Trying to delete detail with id: %d", id)
+        log.info("Deleting detail with id: %d", id)
         check_detail_raise_exceptions(self.repository, id, check_not_found=True)
         self.repository.delete(id)
         return {"success": True}
 
     def replace(self, id, schema: DetailFullUpdate) -> Detail:
-        log.info("Trying replace detail with id %d and following params: %s", id, schema)
+        log.info("Replacing detail with id %d and following params: %s", id, schema)
         check_detail_raise_exceptions(self.repository, id, check_not_found=True)
         return self.repository.replace(id, schema)
 
     def part_update(self, id, schema: DetailPartUpdate) -> Detail:
-        log.info("Trying to do part update detail with id %d and following params: %s", id, schema)
+        log.info("Doing part update detail with id %d and following params: %s", id, schema)
         check_detail_raise_exceptions(self.repository, id, check_not_found=True)
         return self.repository.part_update(id, schema)

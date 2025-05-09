@@ -1,7 +1,7 @@
 from typing import Annotated
 from fastapi import Depends
 from sqlalchemy.orm import Session
-from src.app.domain.interfaces.detail import DetailRepositoryInterface
+from src.app.domain.interfaces.detail import DetailRepositoryInterface, DetailServiceInterface
 from src.app.domain.interfaces.user import UserRepositoryInterface
 from src.app.domain.services.detail import DetailService
 from src.app.domain.services.search import SearchService
@@ -24,16 +24,16 @@ def get_user_repo(db: DbDep):
 
 def get_detail_service(
         detail_repo: DetailRepositoryInterface = Depends(get_detail_repo),
-        user_repo: UserRepositoryInterface = Depends(get_user_repo)
+        user_repository: UserRepositoryInterface = Depends(get_user_repo)
 ):
-    return DetailService(detail_repo, user_repo)
+    return DetailService(detail_repo, user_repository)
 
 
 def get_user_service(
         user_repo: UserRepositoryInterface = Depends(get_user_repo),
-        detail_repo: DetailRepositoryInterface = Depends(get_detail_repo)
+        detail_service: DetailServiceInterface = Depends(get_detail_service)
 ):
-    return UserService(user_repo, detail_repo)
+    return UserService(user_repo, detail_service)
 
 
 def get_search_service():
