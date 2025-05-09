@@ -3,6 +3,6 @@ class Service:
         self.repository = repository
 
 
-class ServiceWithParser:
+class ParserService:
     def __init__(self, parser):
         self.parser = parser

@@ -1,9 +1,9 @@
-from src.app.domain.interfaces.search import SearchServiceInterface, LegoParserInterface
-from src.app.core.base.service import ServiceWithParser
+from src.app.domain.abstractions.search import SearchServiceInterface, LegoParserInterface
+from src.app.core.base.service import ParserService
 from src.app.domain.schemas import DetailLegoId, DetailName
 
 
-class SearchService(ServiceWithParser, SearchServiceInterface):
+class SearchService(ParserService, SearchServiceInterface):
     def __init__(self, lego_parser: LegoParserInterface):
         super().__init__(lego_parser)
 

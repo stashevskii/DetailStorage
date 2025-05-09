@@ -2,8 +2,8 @@ from src.app.domain.schemas import DetailFilter, DetailPartUpdate, DetailCreate,
 from src.app.core.utils.exists import check_detail_raise_exceptions, check_user_and_raise_exceptions
 from src.app.core.base.service import Service
 from src.app.domain.exceptions.detail import NotFoundDetailBasicException
-from src.app.domain.interfaces.detail import DetailServiceInterface, DetailRepositoryInterface
-from src.app.domain.interfaces.user import UserRepositoryInterface
+from src.app.domain.abstractions.detail import DetailServiceInterface, DetailRepositoryInterface
+from src.app.domain.abstractions.user import UserRepositoryInterface
 from src.app.infrastructure.persistence.models.detail import Detail
 from src.app.infrastructure.web.logger import get_logger
 

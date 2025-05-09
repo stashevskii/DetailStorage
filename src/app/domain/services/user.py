@@ -2,8 +2,8 @@ from src.app.domain.schemas import UserFilter, UserPartUpdate, UserCreate, UserF
 from src.app.core.utils.exists import check_user_and_raise_exceptions
 from src.app.core.base.service import Service
 from src.app.domain.exceptions.user import NotFoundUserBasicException
-from src.app.domain.interfaces.detail import DetailServiceInterface
-from src.app.domain.interfaces.user import UserServiceInterface, UserRepositoryInterface
+from src.app.domain.abstractions.detail import DetailServiceInterface
+from src.app.domain.abstractions.user import UserServiceInterface, UserRepositoryInterface
 from src.app.infrastructure.persistence.models.user import User
 from src.app.infrastructure.web.logger import get_logger
 

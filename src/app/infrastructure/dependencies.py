@@ -1,8 +1,8 @@
 from typing import Annotated
 from fastapi import Depends
 from sqlalchemy.orm import Session
-from src.app.domain.interfaces.detail import DetailRepositoryInterface, DetailServiceInterface
-from src.app.domain.interfaces.user import UserRepositoryInterface
+from src.app.domain.abstractions.detail import DetailRepositoryInterface, DetailServiceInterface
+from src.app.domain.abstractions.user import UserRepositoryInterface
 from src.app.domain.services.detail import DetailService
 from src.app.domain.services.search import SearchService
 from src.app.domain.services.user import UserService
