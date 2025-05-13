@@ -5,3 +5,5 @@ from src.app.infrastructure.web.middlewares.requests.process_time import registe
 def register_middlewares(app, log):
     register_log_request_middleware(app, log)
     register_process_time_middleware(app)
+
+__all__ = ["register_middlewares"]

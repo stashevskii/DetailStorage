@@ -11,3 +11,6 @@ router.include_router(user_router)
 
 def include_main_router(app: FastAPI) -> None:
     app.include_router(router)
+
+
+__all__ = ["include_main_router"]
