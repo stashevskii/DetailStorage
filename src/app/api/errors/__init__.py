@@ -1,12 +1,18 @@
-from .http.detail import NotFoundDetailHttpException, DetailAlreadyExistsHttpException
-from .http.user import (
+from fastapi import FastAPI, HTTPException
+
+from src.app.api.errors.detail import NotFoundDetailHttpException, DetailAlreadyExistsHttpException
+from src.app.api.errors.user import (
     NotFoundUserHttpException,
     UserAlreadyExistsHttpException,
     UserWithThisEmailAlreadyExistsHttpException,
     UserWithThisUsernameAlreadyExistsHttpException
 )
-from .register import register_exceptions_handler
 from .response import ExceptionResponseTemplate
+
+
+def register_exceptions_handler(app: FastAPI):
+    app.exception_handler(HTTPException)(lambda request, exc: ExceptionResponseTemplate(request, exc).__str__())
+
 
 __all__ = [
     "NotFoundDetailHttpException",
@@ -17,4 +23,5 @@ __all__ = [
     "UserWithThisUsernameAlreadyExistsHttpException",
     "register_exceptions_handler",
     "ExceptionResponseTemplate",
+    "register_exceptions_handler"
 ]

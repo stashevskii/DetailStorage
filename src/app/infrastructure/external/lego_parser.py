@@ -1,4 +1,4 @@
-import requests
+import httpx
 from bs4 import BeautifulSoup
 from src.app.core.base import Parser
 from src.app.domain.abstractions import LegoParserInterface
@@ -14,7 +14,8 @@ class LegoParser(Parser, LegoParserInterface):
     def get_html(self, query: str, page_number: int) -> str:
         url = f"{self.url}?query={query}&page={page_number}"
         log.info("Send get request to %s", url)
-        response = requests.get(url)
+        with httpx.Client() as client:
+            response = client.get(url)
         return response.text
 
     def get_detail_by_query(self, q: str, pq: int) -> dict:

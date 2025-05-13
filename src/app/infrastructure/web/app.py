@@ -9,7 +9,7 @@ from src.app.infrastructure.persistence.db import engine
 from src.app.core.base import Base
 from src.app.core.utils import create_required_countries
 from src.app.core.utils import configure_logging, get_logger
-from .middlewares.register import register_middlewares
+from .middlewares import register_middlewares
 
 log = get_logger(__name__)
 
@@ -18,9 +18,9 @@ log = get_logger(__name__)
 async def lifespan(application: FastAPI):
     configure_logging(logging.INFO)
     Base.metadata.create_all(bind=engine)
-    log.info("Created tables in db")
+    log.info("Created all tables in db")
     create_required_countries()
-    log.info("Created required countries in db table countries")
+    log.info("Created required countries in db")
 
     yield
 
@@ -34,13 +34,19 @@ def create_app() -> FastAPI:
         lifespan=lifespan
     )
     include_main_router(application)
-    register_middlewares(application)
+    register_middlewares(application, log)
     register_exceptions_handler(application)
     return application
 
 
 def run():
-    uvicorn.run("src.app.main:app", host=config.app_config.app_host, port=config.app_config.app_port, reload=True)
+    uvicorn.run(
+        app="src.app.main:app",
+        host=config.app_config.app_host,
+        port=config.app_config.app_port,
+        log_config=None,
+        reload=True
+    )
 
 
 app = create_app()
