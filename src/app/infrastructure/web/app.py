@@ -4,7 +4,7 @@ import uvicorn
 from fastapi import FastAPI
 from src.app.infrastructure.config import config
 from src.app.api.errors import register_exceptions_handler
-from src.app.api.endpoints import include_main_router
+from src.app.api.endpoints import register_main_router
 from src.app.infrastructure.persistence.db import engine
 from src.app.core.base import Base
 from src.app.core.utils import create_required_countries
@@ -20,7 +20,6 @@ async def lifespan(application: FastAPI):
     Base.metadata.create_all(bind=engine)
     log.info("Created all tables in db")
     create_required_countries()
-    log.info("Created required countries in db")
 
     yield
 
@@ -33,8 +32,8 @@ def create_app() -> FastAPI:
         description=config.app_config.app_description,
         lifespan=lifespan
     )
-    include_main_router(application)
-    register_middlewares(application, log)
+    register_main_router(application)
+    register_middlewares(application)
     register_exceptions_handler(application)
     return application
 
@@ -45,6 +44,7 @@ def run():
         host=config.app_config.app_host,
         port=config.app_config.app_port,
         log_config=None,
+        access_log=False,
         reload=True
     )
 

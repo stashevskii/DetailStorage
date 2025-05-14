@@ -12,11 +12,9 @@ class ExceptionResponseTemplate:
         self.request = request
         self.exc = exc
 
-    def __str__(self):
-        if self.exc.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR:
-            log.fatal("Internal server error")
-        else:
-            log.error("HTTP error %s: %s", self.exc.status_code, self.exc.detail)
+    @property
+    def template(self):
+        log.error("HTTP error %s: %s", self.exc.status_code, self.exc.detail)
         return JSONResponse(
             status_code=self.exc.status_code,
             content={
