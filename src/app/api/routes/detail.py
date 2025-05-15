@@ -67,9 +67,11 @@ def replace_detail(
     return service.replace(id, schema)
 
 
-@router.patch("/{id}",
-              summary=config.detail_router_config.docs[5]["summary"],
-              description=config.detail_router_config.docs[5]["description"])
+@router.patch(
+    "/{id}",
+    summary=config.detail_router_config.docs[5]["summary"],
+    description=config.detail_router_config.docs[5]["description"]
+)
 @map_exceptions({NotFoundDetailBasicException: NotFoundDetailHttpException})
 def part_update_detail(
         id: int, service: DetailServiceDep,

@@ -1,9 +1,8 @@
-from pydantic import Field
 from src.app.core.base import ConfigBase
 
 
 class DbConfig(ConfigBase):
-    db_username: str = Field()
-    db_password: str = Field()
-    db_host: str = Field()
-    db_name: str = Field()
+    db_username: str
+    db_password: str
+    db_host: str
+    db_name: str

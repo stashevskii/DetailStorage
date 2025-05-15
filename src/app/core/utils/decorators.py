@@ -5,10 +5,10 @@ from .logger import get_logger
 log = get_logger(__name__)
 
 
-def map_exceptions(ex: dict) -> Callable:
+def map_exceptions(ex: dict[Exception: Exception]) -> Callable:
     def decorator(func: Callable) -> Callable:
         @wraps(func)
-        def wrapper(*args, **kwargs) -> None:
+        def wrapper(*args, **kwargs):
             try:
                 return func(*args, **kwargs)
             except Exception as e:

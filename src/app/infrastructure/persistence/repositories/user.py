@@ -15,6 +15,9 @@ class UserRepository(Repository, UserRepositoryInterface):
     def get(self, schema: UserFilter) -> User | None:
         return self.session.query(self.table).filter_by(**delete_nones_from_dict(schema.model_dump())).first()
 
+    def get_by_username(self, username: str) -> User | None:
+        return self.session.query(self.table).filter_by(username=username).first()
+
     def get_by_id(self, id: int) -> User | None:
         return self.session.query(self.table).filter_by(id=id).first()
 

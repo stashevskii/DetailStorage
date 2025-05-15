@@ -7,6 +7,7 @@ from src.app.api.errors.user import (
     UserWithThisEmailAlreadyExistsHttpException,
     UserWithThisUsernameAlreadyExistsHttpException
 )
+from .auth import InvalidPasswordOrUsernameHttpError
 from .response import ExceptionResponseTemplate
 
 
@@ -21,5 +22,6 @@ __all__ = [
     "UserAlreadyExistsHttpException",
     "UserWithThisEmailAlreadyExistsHttpException",
     "UserWithThisUsernameAlreadyExistsHttpException",
+    "InvalidPasswordOrUsernameHttpError",
     "register_exceptions_handler",
 ]

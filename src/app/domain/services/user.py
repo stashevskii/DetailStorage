@@ -2,22 +2,19 @@ from src.app.domain.schemas import UserFilter, UserPartUpdate, UserCreate, UserF
 from src.app.core.utils import check_user_and_raise_exceptions, get_logger
 from src.app.core.base import Service
 from src.app.domain.exceptions import NotFoundUserBasicException
-from src.app.domain.abstractions import UserServiceInterface, UserRepositoryInterface, DetailServiceInterface
+from src.app.domain.abstractions import UserServiceInterface, UserRepositoryInterface, DetailRepositoryInterface
 from src.app.infrastructure.persistence.models import User
 
 log = get_logger(__name__)
 
 
 class UserService(Service, UserServiceInterface):
-    def __init__(self, user_repository: UserRepositoryInterface, detail_service: DetailServiceInterface):
+    def __init__(self, user_repository: UserRepositoryInterface, detail_repository: DetailRepositoryInterface):
         super().__init__(user_repository)
-        self.detail_service = detail_service
+        self.detail_repository = detail_repository
 
     def get_all(self):
         return self.repository.get_all()
-
-    def get_by_id(self, id: int) -> User:
-        return self.repository.get_by_id(id=id)
 
     def get(self, schema: UserFilter) -> User:
         log.info("Getting user with following params: %s", schema)
@@ -33,9 +30,9 @@ class UserService(Service, UserServiceInterface):
     def delete(self, id: int) -> dict[str, bool]:
         log.info("Deleting user with id: %d", id)
         check_user_and_raise_exceptions(self.repository, id, check_not_found=True)
-        log.info("Deleting user's (with %d) details", id)
-        for i in self.get_by_id(id).details:
-            self.detail_service.delete(i.id)
+        log.info("Deleting user's (with id %d) details", id)
+        for i in self.repository.get_by_id(id=id).details:
+            self.detail_repository.delete(i.id)
         self.repository.delete(id)
         return {"success": True}
 

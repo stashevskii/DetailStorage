@@ -69,3 +69,9 @@ class DetailName(PageLimitSchema):
 
 class DetailLegoId(PageLimitSchema):
     lego_id: int = Field(ge=0)
+
+
+# Auth Schemas
+class LoginResponse(BaseSchema):
+    message: str
+    user: UserSchema
