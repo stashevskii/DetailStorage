@@ -13,9 +13,6 @@ class UserService(Service, UserServiceInterface):
         super().__init__(user_repository)
         self.detail_repository = detail_repository
 
-    def get_all(self):
-        return self.repository.get_all()
-
     def get(self, schema: UserFilter) -> User:
         log.info("Getting user with following params: %s", schema)
         response = self.repository.get(schema)
@@ -33,7 +30,7 @@ class UserService(Service, UserServiceInterface):
         log.info("Deleting user's (with id %d) details", id)
         # delete all user details
         for i in self.repository.get_by_id(id=id).details:
-            self.detail_repository.delete(i.id)
+            self.detail_repository.delete(i.id, id)
         self.repository.delete(id)
         return {"success": True}
 

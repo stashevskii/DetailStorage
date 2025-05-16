@@ -26,13 +26,11 @@ class DetailSchema(DetailBase):
 
 
 class DetailFilter(DetailBaseOptional):
-    user_id: Optional[int] = Field(ge=1, default=None)
     id: Optional[int] = Field(ge=0, default=None)
     all_obj: bool = Field(default=False)
 
 
 class DetailCreate(DetailBase):
-    user_id: int = Field(ge=1)
     id: Optional[int] = Field(ge=0, default=None)
 
 

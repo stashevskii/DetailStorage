@@ -17,7 +17,7 @@ def exists(repo, **conditions: Any) -> bool:
 
 
 def check_detail_raise_exceptions(
-        repo: Any,
+        repo,
         id: int = None,
         check_exists: bool = False,
         check_not_found: bool = False
@@ -30,9 +30,9 @@ def check_detail_raise_exceptions(
 
 
 def check_user_and_raise_exceptions(
-        repo: Any,
+        repo,
         id: int = None,
-        email: str | EmailStr= None,
+        email: str | EmailStr = None,
         username: str = None,
         check_exists: bool = False,
         check_not_found: bool = False
@@ -47,3 +47,8 @@ def check_user_and_raise_exceptions(
 
     if check_not_found and id is not None and not exists(repo, id=id):
         raise NotFoundUserException
+
+
+def check_user_owns_detail_and_raise_exceptions(repo, detail_id: int, user_id: int) -> None:
+    if not any(detail.id == detail_id for detail in repo.get_by_id(user_id).details):
+        raise NotFoundDetailException

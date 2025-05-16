@@ -7,5 +7,9 @@ class UserRepositoryInterface(CrudInterface, GetAllInterface):
     def get_by_username(self, username):
         raise NotImplemented
 
+    @abstractmethod
+    def get_by_id(self, id):
+        raise NotImplemented
+
 
 class UserServiceInterface(CrudInterface, ABC): ...
