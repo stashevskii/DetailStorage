@@ -13,7 +13,7 @@ class ExceptionResponseTemplate:
         self.exc = exc
 
     @property
-    def template(self):
+    def template(self) -> JSONResponse:
         log.error("HTTP error %s: %s", self.exc.status_code, self.exc.detail)
         return JSONResponse(
             status_code=self.exc.status_code,

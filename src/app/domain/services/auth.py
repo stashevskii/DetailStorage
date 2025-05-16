@@ -11,7 +11,7 @@ class AuthService(Service, AuthServiceInterface):
     def __init__(self, user_repository: UserRepositoryInterface):
         super().__init__(user_repository)
 
-    def login(self, credentials: HTTPBasicCredentials) -> dict[str: str]:
+    def login(self, credentials: HTTPBasicCredentials) -> dict:
         user = self.repository.get_by_username(credentials.username)
         if not user or not compare_passwords(credentials.password, get_bytes_from_db_hex_hash(user.hashed_password)):
             raise InvalidCredentialsException

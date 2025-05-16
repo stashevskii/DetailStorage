@@ -1,7 +1,7 @@
 class DetailRouterConfig:
     prefix: str = "/api/details"
     tags: list[str] = ["Details"]
-    docs: dict[int: dict[str: str]] = {
+    docs: dict= {
         1: {
             "summary": "Get details by parameters (connected to current authed user)",
             "description": "Get details by parameters (connected to current authed user) endpoint"

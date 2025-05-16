@@ -6,13 +6,13 @@ from src.app.core.base import Repository
 from src.app.infrastructure.persistence.models import Detail
 
 
-class DetailRepository(Repository, DetailRepositoryInterface):
+class DetailRepository(Repository[Detail], DetailRepositoryInterface):
     table = Detail
 
     def get_all(self) -> list[Type[Detail]]:
         return self.session.query(self.table).all()
 
-    def get(self, **kwargs) -> list[Type[Detail]] | list[Type[Detail] | None]:
+    def get(self, **kwargs) -> list[Detail] | list[Detail | None]:
         query = self.session.query(self.table).filter_by(
             **ignore_dict_element(delete_nones_from_dict(kwargs), "all_obj")
         )

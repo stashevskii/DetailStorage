@@ -12,7 +12,7 @@ from src.app.domain.exceptions import (
 )
 
 
-def exists(repo, **conditions: Any) -> bool:
+def exists(repo, **conditions) -> bool:
     return any(all(getattr(obj, key) == value for key, value in conditions.items()) for obj in repo.get_all())
 
 

@@ -8,7 +8,7 @@ from src.app.domain.exceptions import (
     NotFoundUserException,
     DuplicateEmailException, DuplicateUsernameException
 )
-from src.app.domain.schemas import UserPartUpdate, UserSchema, UserFullUpdate
+from src.app.domain.schemas import UserPartUpdate, UserSchema, UserFullUpdate, SuccessSchema
 from src.app.core.utils import map_exceptions
 from src.app.infrastructure.dependencies import UserServiceDep, CurrentUserDep
 
@@ -30,7 +30,7 @@ def get_current_user(current_user: CurrentUserDep) -> UserSchema:
     description=config.user_router_config.docs[2]["description"]
 )
 @map_exceptions({NotFoundUserException: NotFoundUserHttp})
-def delete_user(service: UserServiceDep, current_user: CurrentUserDep):
+def delete_user(service: UserServiceDep, current_user: CurrentUserDep) -> SuccessSchema:
     return service.delete(current_user.id)
 
 

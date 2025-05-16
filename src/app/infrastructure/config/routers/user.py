@@ -1,7 +1,7 @@
 class UserRouterConfig:
     prefix: str = "/api/users"
     tags: list[str] = ["Users"]
-    docs: dict[int: dict[str: str]] = {
+    docs: dict = {
         1: {
             "summary": "Get current user",
             "description": "Get current user endpoint"

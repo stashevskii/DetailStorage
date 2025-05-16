@@ -3,10 +3,10 @@ from src.app.infrastructure.config import config
 from src.app.infrastructure.persistence.db import get_db
 from src.app.infrastructure.persistence.models import Country
 
-
 log = get_logger(__name__)
 
-def create_required_countries():
+
+def create_required_countries() -> None:
     session = get_db()
 
     existing = {c.name for c in session.query(Country.name).all()}

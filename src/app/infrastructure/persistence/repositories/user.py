@@ -6,7 +6,7 @@ from src.app.core.base import Repository
 from src.app.infrastructure.persistence.models import User
 
 
-class UserRepository(Repository, UserRepositoryInterface):
+class UserRepository(Repository[User], UserRepositoryInterface):
     table = User
 
     def get_all(self) -> list[Type[User]]:
@@ -34,7 +34,7 @@ class UserRepository(Repository, UserRepositoryInterface):
         self.session.delete(user_to_delete)
         self.session.commit()
 
-    def __basic_update(self, id: int, schema: UserFullUpdate | UserPartUpdate, dict_func=lambda _: _):
+    def __basic_update(self, id: int, schema: UserFullUpdate | UserPartUpdate, dict_func=lambda _: _) -> User | None:
         user_to_update = self.session.query(self.table).filter_by(id=id).first()
         for k, v in dict_func(schema.model_dump()).items():
             if k == "password":
