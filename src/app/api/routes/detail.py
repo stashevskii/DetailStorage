@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends
-from src.app.api.errors import NotFoundUserHttpException
+from src.app.api.errors import NotFoundUserHttp
 from src.app.infrastructure.config import config
 from src.app.domain.exceptions import (
-    NotFoundDetailBasicException,
-    DetailAlreadyExistsBasicException,
-    NotFoundUserBasicException
+    NotFoundDetailException,
+    DetailAlreadyExistsException,
+    NotFoundUserException
 )
 from src.app.domain.schemas import DetailFilter, DetailSchema, DetailCreate, DetailPartUpdate, DetailFullUpdate
-from src.app.api.errors import NotFoundDetailHttpException, DetailAlreadyExistsHttpException
+from src.app.api.errors import NotFoundDetailHttp, DetailAlreadyExistsHttp
 from src.app.domain.schemas import SuccessSchema
 from src.app.core.utils import map_exceptions
 from src.app.infrastructure.dependencies import DetailServiceDep
@@ -20,7 +20,7 @@ router = APIRouter(prefix=config.detail_router_config.prefix, tags=config.detail
     summary=config.detail_router_config.docs[1]["summary"],
     description=config.detail_router_config.docs[1]["description"],
 )
-@map_exceptions({NotFoundDetailBasicException: NotFoundDetailHttpException})
+@map_exceptions({NotFoundDetailException: NotFoundDetailHttp})
 def get_detail(
         service: DetailServiceDep,
         schema: DetailFilter = Depends()
@@ -34,8 +34,8 @@ def get_detail(
     description=config.detail_router_config.docs[2]["description"]
 )
 @map_exceptions({
-    DetailAlreadyExistsBasicException: DetailAlreadyExistsHttpException,
-    NotFoundUserBasicException: NotFoundUserHttpException
+    DetailAlreadyExistsException: DetailAlreadyExistsHttp,
+    NotFoundUserException: NotFoundUserHttp
 })
 def add_detail(
         service: DetailServiceDep,
@@ -49,7 +49,7 @@ def add_detail(
     summary=config.detail_router_config.docs[3]["summary"],
     description=config.detail_router_config.docs[3]["description"]
 )
-@map_exceptions({NotFoundDetailBasicException: NotFoundDetailHttpException})
+@map_exceptions({NotFoundDetailException: NotFoundDetailHttp})
 def delete_detail(id: int, service: DetailServiceDep) -> SuccessSchema:
     return service.delete(id)
 
@@ -59,7 +59,7 @@ def delete_detail(id: int, service: DetailServiceDep) -> SuccessSchema:
     summary=config.detail_router_config.docs[4]["summary"],
     description=config.detail_router_config.docs[4]["description"]
 )
-@map_exceptions({NotFoundDetailBasicException: NotFoundDetailHttpException})
+@map_exceptions({NotFoundDetailException: NotFoundDetailHttp})
 def replace_detail(
         id: int, service: DetailServiceDep,
         schema: DetailFullUpdate = Depends()
@@ -72,7 +72,7 @@ def replace_detail(
     summary=config.detail_router_config.docs[5]["summary"],
     description=config.detail_router_config.docs[5]["description"]
 )
-@map_exceptions({NotFoundDetailBasicException: NotFoundDetailHttpException})
+@map_exceptions({NotFoundDetailException: NotFoundDetailHttp})
 def part_update_detail(
         id: int, service: DetailServiceDep,
         schema: DetailPartUpdate = Depends()

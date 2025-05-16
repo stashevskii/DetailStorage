@@ -1,12 +1,12 @@
 from fastapi import Depends, APIRouter
 from src.app.api.errors import (
-    NotFoundUserHttpException,
-    UserWithThisEmailAlreadyExistsHttpException, UserWithThisUsernameAlreadyExistsHttpException
+    NotFoundUserHttp,
+    DuplicateEmailHttp, DuplicateUsernameHttp
 )
 from src.app.infrastructure.config import config
 from src.app.domain.exceptions import (
-    NotFoundUserBasicException,
-    UserWithThisEmailAlreadyExistsBasicException, UserWithThisUsernameAlreadyExistsBasicException
+    NotFoundUserException,
+    DuplicateEmailException, DuplicateUsernameException
 )
 from src.app.domain.schemas import UserPartUpdate, UserSchema, UserFullUpdate
 from src.app.core.utils import map_exceptions
@@ -29,7 +29,7 @@ def get_current_user(current_user: CurrentUserDep) -> UserSchema:
     summary=config.user_router_config.docs[2]["summary"],
     description=config.user_router_config.docs[2]["description"]
 )
-@map_exceptions({NotFoundUserBasicException: NotFoundUserHttpException})
+@map_exceptions({NotFoundUserException: NotFoundUserHttp})
 def delete_user(service: UserServiceDep, current_user: CurrentUserDep):
     return service.delete(current_user.id)
 
@@ -40,9 +40,9 @@ def delete_user(service: UserServiceDep, current_user: CurrentUserDep):
     description=config.user_router_config.docs[3]["description"]
 )
 @map_exceptions({
-    NotFoundUserBasicException: NotFoundUserHttpException,
-    UserWithThisEmailAlreadyExistsBasicException: UserWithThisEmailAlreadyExistsHttpException,
-    UserWithThisUsernameAlreadyExistsBasicException: UserWithThisUsernameAlreadyExistsHttpException
+    NotFoundUserException: NotFoundUserHttp,
+    DuplicateEmailException: DuplicateEmailHttp,
+    DuplicateUsernameException: DuplicateUsernameHttp
 })
 def replace_user(
         service: UserServiceDep,
@@ -58,9 +58,9 @@ def replace_user(
     description=config.user_router_config.docs[4]["description"]
 )
 @map_exceptions({
-    NotFoundUserBasicException: NotFoundUserHttpException,
-    UserWithThisEmailAlreadyExistsBasicException: UserWithThisEmailAlreadyExistsHttpException,
-    UserWithThisUsernameAlreadyExistsBasicException: UserWithThisUsernameAlreadyExistsHttpException
+    NotFoundUserException: NotFoundUserHttp,
+    DuplicateEmailException: DuplicateEmailHttp,
+    DuplicateUsernameException: DuplicateUsernameHttp
 })
 def part_update_user(
         service: UserServiceDep,

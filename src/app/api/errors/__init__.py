@@ -1,13 +1,13 @@
 from fastapi import FastAPI
 from starlette.exceptions import HTTPException
-from src.app.api.errors.detail import NotFoundDetailHttpException, DetailAlreadyExistsHttpException
+from src.app.api.errors.detail import NotFoundDetailHttp, DetailAlreadyExistsHttp
 from src.app.api.errors.user import (
-    NotFoundUserHttpException,
-    UserAlreadyExistsHttpException,
-    UserWithThisEmailAlreadyExistsHttpException,
-    UserWithThisUsernameAlreadyExistsHttpException
+    NotFoundUserHttp,
+    UserAlreadyExistsHttp,
+    DuplicateEmailHttp,
+    DuplicateUsernameHttp
 )
-from .auth import InvalidPasswordOrUsernameHttpError
+from .auth import InvalidCredentialsHttp
 from .response import ExceptionResponseTemplate
 
 
@@ -16,12 +16,12 @@ def register_exceptions_handler(app: FastAPI):
 
 
 __all__ = [
-    "NotFoundDetailHttpException",
-    "DetailAlreadyExistsHttpException",
-    "NotFoundUserHttpException",
-    "UserAlreadyExistsHttpException",
-    "UserWithThisEmailAlreadyExistsHttpException",
-    "UserWithThisUsernameAlreadyExistsHttpException",
-    "InvalidPasswordOrUsernameHttpError",
+    "NotFoundDetailHttp",
+    "DetailAlreadyExistsHttp",
+    "NotFoundUserHttp",
+    "UserAlreadyExistsHttp",
+    "DuplicateEmailHttp",
+    "DuplicateUsernameHttp",
+    "InvalidCredentialsHttp",
     "register_exceptions_handler",
 ]

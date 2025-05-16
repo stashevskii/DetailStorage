@@ -1,11 +1,14 @@
 from typing import Any
+
+from pydantic import EmailStr
+
 from src.app.domain.exceptions import (
-    UserAlreadyExistsBasicException,
-    UserWithThisEmailAlreadyExistsBasicException,
-    NotFoundUserBasicException,
-    UserWithThisUsernameAlreadyExistsBasicException,
-    NotFoundDetailBasicException,
-    DetailAlreadyExistsBasicException,
+    UserAlreadyExistsException,
+    DuplicateEmailException,
+    NotFoundUserException,
+    DuplicateUsernameException,
+    NotFoundDetailException,
+    DetailAlreadyExistsException,
 )
 
 
@@ -21,26 +24,26 @@ def check_detail_raise_exceptions(
 ) -> None:
     if id is not None:
         if check_exists and exists(repo, id=id):
-            raise DetailAlreadyExistsBasicException
+            raise DetailAlreadyExistsException
         if check_not_found and not exists(repo, id=id):
-            raise NotFoundDetailBasicException
+            raise NotFoundDetailException
 
 
 def check_user_and_raise_exceptions(
         repo: Any,
         id: int = None,
-        email: str = None,
+        email: str | EmailStr= None,
         username: str = None,
         check_exists: bool = False,
         check_not_found: bool = False
 ) -> None:
     if check_exists:
         if id is not None and exists(repo, id=id):
-            raise UserAlreadyExistsBasicException
+            raise UserAlreadyExistsException
         if email is not None and exists(repo, email=email):
-            raise UserWithThisEmailAlreadyExistsBasicException
+            raise DuplicateEmailException
         if username is not None and exists(repo, username=username):
-            raise UserWithThisUsernameAlreadyExistsBasicException
+            raise DuplicateUsernameException
 
     if check_not_found and id is not None and not exists(repo, id=id):
-        raise NotFoundUserBasicException
+        raise NotFoundUserException

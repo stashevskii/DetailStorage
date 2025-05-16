@@ -2,7 +2,7 @@ from fastapi import HTTPException
 from fastapi import status
 
 
-class InvalidPasswordOrUsernameHttpError(HTTPException):
+class InvalidCredentialsHttp(HTTPException):
     def __init__(self):
         super().__init__(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -11,10 +11,10 @@ class InvalidPasswordOrUsernameHttpError(HTTPException):
         )
 
 
-class UnauthedHttpError(HTTPException):
+class UnauthedHttp(HTTPException):
     def __init__(self):
         super().__init__(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Current user is not authed",
-            # headers={"WWW-Authenticate": "Basic"}
+            detail="You are unauthorized",
+            headers={"WWW-Authenticate": ""}
         )

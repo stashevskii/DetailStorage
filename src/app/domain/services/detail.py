@@ -1,7 +1,7 @@
 from src.app.domain.schemas import DetailFilter, DetailPartUpdate, DetailCreate, DetailFullUpdate
 from src.app.core.utils import check_detail_raise_exceptions, check_user_and_raise_exceptions, get_logger
 from src.app.core.base import Service
-from src.app.domain.exceptions import NotFoundDetailBasicException
+from src.app.domain.exceptions import NotFoundDetailException
 from src.app.domain.abstractions import DetailServiceInterface, DetailRepositoryInterface, UserRepositoryInterface
 from src.app.infrastructure.persistence.models import Detail
 
@@ -20,7 +20,7 @@ class DetailService(Service, DetailServiceInterface):
     def get(self, schema: DetailFilter) -> list[Detail]:
         log.info("Getting details with following param: %s", schema)
         response = self.repository.get(schema)
-        if response == [None] or not response: raise NotFoundDetailBasicException
+        if response == [None] or not response: raise NotFoundDetailException
         return [i for i in response]
 
     def add(self, schema: DetailCreate) -> Detail:

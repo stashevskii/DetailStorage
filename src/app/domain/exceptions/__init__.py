@@ -1,16 +1,16 @@
-from .detail import NotFoundDetailBasicException, DetailAlreadyExistsBasicException
+from .detail import NotFoundDetailException, DetailAlreadyExistsException
 from .user import (
-    NotFoundUserBasicException,
-    UserAlreadyExistsBasicException,
-    UserWithThisEmailAlreadyExistsBasicException,
-    UserWithThisUsernameAlreadyExistsBasicException,
+    NotFoundUserException,
+    UserAlreadyExistsException,
+    DuplicateEmailException,
+    DuplicateUsernameException,
 )
 
 __all__ = [
-    "NotFoundUserBasicException",
-    "DetailAlreadyExistsBasicException",
-    "NotFoundDetailBasicException",
-    "UserAlreadyExistsBasicException",
-    "UserWithThisEmailAlreadyExistsBasicException",
-    "UserWithThisUsernameAlreadyExistsBasicException"
+    "NotFoundUserException",
+    "DetailAlreadyExistsException",
+    "NotFoundDetailException",
+    "UserAlreadyExistsException",
+    "DuplicateEmailException",
+    "DuplicateUsernameException"
 ]

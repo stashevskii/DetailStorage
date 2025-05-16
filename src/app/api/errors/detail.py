@@ -1,7 +1,7 @@
 from fastapi import status, HTTPException
 
 
-class NotFoundDetailHttpException(HTTPException):
+class NotFoundDetailHttp(HTTPException):
     def __init__(self):
         super().__init__(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -10,7 +10,7 @@ class NotFoundDetailHttpException(HTTPException):
         )
 
 
-class DetailAlreadyExistsHttpException(HTTPException):
+class DetailAlreadyExistsHttp(HTTPException):
     def __init__(self):
         super().__init__(
             status_code=status.HTTP_400_BAD_REQUEST,

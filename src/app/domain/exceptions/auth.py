@@ -1,2 +1,2 @@
-class InvalidPasswordOrUsernameBasicException(Exception):
+class InvalidCredentialsException(Exception):
     ...

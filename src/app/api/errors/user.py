@@ -2,7 +2,7 @@ from fastapi import HTTPException
 from fastapi import status
 
 
-class NotFoundUserHttpException(HTTPException):
+class NotFoundUserHttp(HTTPException):
     def __init__(self):
         super().__init__(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -11,7 +11,7 @@ class NotFoundUserHttpException(HTTPException):
         )
 
 
-class UserAlreadyExistsHttpException(HTTPException):
+class UserAlreadyExistsHttp(HTTPException):
     def __init__(self):
         super().__init__(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -20,7 +20,7 @@ class UserAlreadyExistsHttpException(HTTPException):
         )
 
 
-class UserWithThisEmailAlreadyExistsHttpException(HTTPException):
+class DuplicateEmailHttp(HTTPException):
     def __init__(self):
         super().__init__(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -29,7 +29,7 @@ class UserWithThisEmailAlreadyExistsHttpException(HTTPException):
         )
 
 
-class UserWithThisUsernameAlreadyExistsHttpException(HTTPException):
+class DuplicateUsernameHttp(HTTPException):
     def __init__(self):
         super().__init__(
             status_code=status.HTTP_400_BAD_REQUEST,

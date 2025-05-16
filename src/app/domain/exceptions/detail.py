@@ -1,6 +1,6 @@
-class NotFoundDetailBasicException(Exception):
+class NotFoundDetailException(Exception):
     ...
 
 
-class DetailAlreadyExistsBasicException(Exception):
+class DetailAlreadyExistsException(Exception):
     ...
