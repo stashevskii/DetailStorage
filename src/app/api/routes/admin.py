@@ -12,6 +12,8 @@ router = APIRouter(prefix=config.admin_router_config.prefix, tags=config.admin_r
 
 @router.get(
     "/users/all",
+    summary=config.admin_router_config.docs[1]["summary"],
+    description=config.admin_router_config.docs[1]["description"],
 )
 @map_exceptions({NotFoundUserException: NotFoundUserHttp})
 def get_all_users(
@@ -22,6 +24,8 @@ def get_all_users(
 
 @router.post(
     "/users",
+    summary=config.admin_router_config.docs[2]["summary"],
+    description=config.admin_router_config.docs[2]["description"],
 )
 @map_exceptions({
     UserAlreadyExistsException: UserAlreadyExistsException,
@@ -37,6 +41,8 @@ def add_user(
 
 @router.delete(
     "/users/{id}",
+    summary=config.admin_router_config.docs[3]["summary"],
+    description=config.admin_router_config.docs[3]["description"],
 )
 @map_exceptions({NotFoundUserException: NotFoundUserHttp})
 def delete_user(
@@ -48,6 +54,8 @@ def delete_user(
 
 @router.put(
     "/users/{id}",
+    summary=config.admin_router_config.docs[4]["summary"],
+    description=config.admin_router_config.docs[4]["description"],
 )
 @map_exceptions({
     NotFoundUserException: NotFoundUserHttp,
@@ -64,6 +72,8 @@ def replace_user(
 
 @router.patch(
     "/users/{id}",
+    summary=config.admin_router_config.docs[5]["summary"],
+    description=config.admin_router_config.docs[5]["description"],
 )
 @map_exceptions({
     NotFoundUserException: NotFoundUserHttp,
