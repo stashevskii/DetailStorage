@@ -13,6 +13,10 @@ class UserService(Service, UserServiceInterface):
         super().__init__(user_repository)
         self.detail_repository = detail_repository
 
+    def get_all(self):
+        log.info("Getting all users")
+        return self.repository.get_all()
+
     def get(self, schema: UserFilter) -> User:
         log.info("Getting user with following params: %s", schema)
         response = self.repository.get(schema)

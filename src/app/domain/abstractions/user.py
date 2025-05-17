@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from .basic import CrudInterface, GetAllInterface
 
 
-class UserRepositoryInterface(CrudInterface, GetAllInterface):
+class UserRepositoryInterface(CrudInterface, GetAllInterface, ABC):
     @abstractmethod
     def get_by_username(self, username):
         raise NotImplemented
@@ -12,4 +12,4 @@ class UserRepositoryInterface(CrudInterface, GetAllInterface):
         raise NotImplemented
 
 
-class UserServiceInterface(CrudInterface, ABC): ...
+class UserServiceInterface(CrudInterface, GetAllInterface, ABC): ...

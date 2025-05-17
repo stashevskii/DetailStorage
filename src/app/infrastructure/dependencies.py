@@ -9,6 +9,7 @@ from src.app.domain.abstractions import DetailRepositoryInterface, UserRepositor
     UserServiceInterface, SearchServiceInterface
 from src.app.domain.abstractions.auth import AuthServiceInterface
 from src.app.domain.services import DetailService, SearchService, UserService
+from src.app.domain.services.admin import AdminService
 from src.app.domain.services.auth import AuthService
 from src.app.infrastructure.external import LegoParser
 from src.app.infrastructure.persistence.db import get_db
@@ -58,6 +59,13 @@ UserServiceDep = Annotated[UserService, Depends(get_user_service)]
 SearchServiceDep = Annotated[SearchService, Depends(get_search_service)]
 AuthServiceDep = Annotated[AuthService, Depends(get_auth_service)]
 CredentialsDep = Annotated[HTTPBasicCredentials, Depends(HTTPBasic())]
+
+
+def get_admin_service(user_service: UserServiceDep):
+    return AdminService(user_service)
+
+
+AdminServiceDep = Annotated[AdminService, Depends(get_admin_service)]
 
 
 def get_current_user(
