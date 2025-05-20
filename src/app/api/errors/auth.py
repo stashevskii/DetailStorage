@@ -1,5 +1,5 @@
-from fastapi import HTTPException
-from fastapi import status
+from fastapi import HTTPException, status
+from fastapi.responses import JSONResponse
 
 
 class InvalidCredentialsHttp(HTTPException):
@@ -18,3 +18,9 @@ class UnauthedHttp(HTTPException):
             detail="You are unauthorized",
             headers={"WWW-Authenticate": ""}
         )
+
+
+forbidden = JSONResponse(
+    status_code=status.HTTP_403_FORBIDDEN,
+    content={"detail": "This resource is forbidden"}
+)
